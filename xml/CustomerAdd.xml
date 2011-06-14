@@ -102,7 +102,7 @@
 	  <ListID >IDTYPE</ListID> <!-- optional -->
 	  <FullName >STRTYPE</FullName> <!-- optional -->
 	</CurrencyRef>
-      </CustomerAdd>
+      </CustomerAdd>o
       <IncludeRetElement >STRTYPE</IncludeRetElement> <!-- optional, may repeat -->
     </CustomerAddRq>
     <CustomerAddRs statusCode="INTTYPE" statusSeverity="STRTYPE" statusMessage="STRTYPE">
