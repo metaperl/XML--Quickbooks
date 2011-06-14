@@ -7,6 +7,13 @@ has 'request' => (is => 'rw');
 has 'response' => (is => 'rw');
 has 'responsetree' => (is => 'rw', lazy_build => 1);
 has 'responseerror' => (is => 'rw');
+has 'processor' => (
+		    is => 'ro',
+		    isa => 'XML::Quickbooks::RequestProcessor',
+		    handles => ['process'],
+		    lazy => 1,
+		    default => sub {  use XML::Quickbooks::RequestProcessor; XML::Quickbooks::RequestProcessor->new }
+		   );
 
 use Carp;
 use XML::Generator ':pretty';
@@ -19,36 +26,6 @@ sub _build_responsetree {
      $tree->parse($self->response);
      $tree;
 }
-
-sub process {
-     my($self)=@_;
-
-     use IO::File;
-     use Win32::OLE::Const;
-     Win32::OLE->Option(Warn => 2);
-
-     use File::Slurp;
-
-     my $appname = 'XML::Quickbooks';
-     my $qb_company_file = '';
-
-     my $qbxmlrp_const = Win32::OLE::Const->Load("QBXMLRP2 1.0 Type Library");
-
-     my $request_processor = Win32::OLE->new("QBXMLRP2.RequestProcessor", 
-					     sub {$_[0]->CloseConnection();}) or die "oops\n";
-
-     $request_processor->OpenConnection2("", $appname, 
-					 $qbxmlrp_const->{"localQBD"});
-
-     my $ticket = $request_processor->BeginSession($qb_company_file, 
-						   $qbxmlrp_const->{"qbFileOpenDoNotCare"});
-
-
-     my $response_xml_string = $request_processor->ProcessRequest($ticket, $self->request);
-
-     $self->response($response_xml_string);
-}
-
 
 sub as_xml {
      my ($self) = @_;
@@ -66,7 +43,7 @@ sub responseok {
      my($self)=@_;
 
      my $s = 'statusMessage';
-     warn $self->responsetree;
+     #warn $self->responsetree;
      my $elem = $self->responsetree->look_down($s => qr/.+/);
      #warn $elem->as_HTML;
      my $status = $elem->attr($s);
@@ -96,8 +73,10 @@ This method returns a reason.
 =head1 SEE ALSO
 
 =for :list
-* L<Your::Module>
-* L<Your::Package>
+* L<OSR|https://member.developer.intuit.com/qbSDK-current/Common/newOSR/index.html>
+* L<SDK Reference|https://member.developer.intuit.com/qbSDK-Current/doc/html/wwhelp/wwhimpl/js/html/wwhelp.htm?context=QBSDKProGuide&topic=QBSDKProGuide2>
+* L<SDK Index|https://ipp.developer.intuit.com/0085_QuickBooks_Windows_SDK/010_qb/0050_Documentation/Manuals>
+* L<Intuit Forums|https://idnforums.intuit.com/categories.aspx?catid=7>
 
 =cut
 1;

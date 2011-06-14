@@ -1,21 +1,16 @@
 #!/usr/bin/perl
 
-use warnings;
-use strict;
-
-use lib 't/tlib';
-
-use Test::More 'no_plan';
-
-#use XML::Generator;
-
-use XML::Quickbooks;
 use XML::Quickbooks::CustomerAdd;
 
-
 my $CustomerAdd = XML::Quickbooks::CustomerAdd->new;
-$CustomerAdd->as_xml('Matt Smith');
-my $r = $CustomerAdd->process;
+$CustomerAdd->as_xml('Matt Jones');
+
+use XML::Quickbooks::RequestProcessor; 
+
+my $p = XML::Quickbooks::RequestProcessor->new;
+my ($response) = $p->process($CustomerAdd->request);
+
+$CustomerAdd->response($response);
 
 ok ($CustomerAdd->responseok, 'Check response');
 
