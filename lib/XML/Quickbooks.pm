@@ -7,16 +7,8 @@ has 'request' => (is => 'rw');
 has 'response' => (is => 'rw');
 has 'responsetree' => (is => 'rw', lazy_build => 1);
 has 'responseerror' => (is => 'rw');
-has 'processor' => (
-		    is => 'ro',
-		    isa => 'XML::Quickbooks::RequestProcessor',
-		    handles => ['process'],
-		    lazy => 1,
-		    default => sub {  use XML::Quickbooks::RequestProcessor; XML::Quickbooks::RequestProcessor->new }
-		   );
 
 use Carp;
-use XML::Generator ':pretty';
 
 sub _build_responsetree {
      my($self)=@_;
@@ -27,17 +19,6 @@ sub _build_responsetree {
      $tree;
 }
 
-sub as_xml {
-     my ($self) = @_;
-
-     my $x =
-	  QBXML(
-		QBXMLMsgsRq( {onError => "stopOnError"},
-			     inner()
-			     ));
-
-     $self->request('<?xml version="1.0" encoding="utf-8"?> <?qbxml version="10.0"?>' . $x);
-}
 
 sub responseok {
      my($self)=@_;

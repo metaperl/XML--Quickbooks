@@ -1,9 +1,16 @@
 #!/usr/bin/perl
 
-use XML::Quickbooks::CustomerAdd;
+use Test::More;
 
-my $CustomerAdd = XML::Quickbooks::CustomerAdd->new;
-$CustomerAdd->as_xml('Matt Jones');
+use XML::Quickbooks::Generator::CustomerAdd;
+
+my $CustomerAdd = XML::Quickbooks::Generator::CustomerAdd->new;
+
+use UUID::Tiny;
+my $tmpnam = substr("TestCustomer " . create_UUID_as_string(UUID_V1), 0 , 40);
+warn "tmpnam: $tmpnam";
+
+$CustomerAdd->as_xml($tmpnam);
 
 use XML::Quickbooks::RequestProcessor; 
 
@@ -14,4 +21,4 @@ $CustomerAdd->response($response);
 
 ok ($CustomerAdd->responseok, 'Check response');
 
-
+done_testing();

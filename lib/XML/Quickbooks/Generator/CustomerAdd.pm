@@ -1,8 +1,8 @@
-package XML::Quickbooks::CustomerAdd;
+package XML::Quickbooks::Generator::CustomerAdd;
 
 use Moose;
 
-extends 'XML::Quickbooks';
+extends 'XML::Quickbooks::Generator';
 
 use XML::Generator ':pretty';
 
