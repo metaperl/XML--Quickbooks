@@ -23,7 +23,7 @@ my ($response) = $p->process($CustomerAdd->request);
 
 sub mytest {
     if (
-	(not $CustomerAdd->evaluate($response)) &&
+
 	($CustomerAdd->responseerror =~ /too long/)) {
       1;
     } else {
@@ -33,6 +33,7 @@ sub mytest {
 
 
 
-ok (mytest, 'evaluaton of response must be failure based on data being too long');
+is($CustomerAdd->evaluate($response), 0, 'Evaluating response from request must fail');
+like($CustomerAdd->responseerror, qr/too long/, 'Reason for failure must say data was too long');
 
 done_testing();
