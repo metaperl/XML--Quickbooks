@@ -1,15 +1,13 @@
 #!/usr/bin/perl
 
-use Test::More;
+use t::lib::T;
+use t::lib::U;
 
 use XML::Quickbooks::Generator::VendorAdd;
 
 my $VendorAdd = XML::Quickbooks::Generator::VendorAdd->new;
 
-use UUID::Tiny;
-my $tmpnam = substr("Test " . create_UUID_as_string(UUID_V1), 0 , 40);
-
-$VendorAdd->as_xml($tmpnam);
+$VendorAdd->as_xml("Test " . datetimestamp);
 
 use XML::Quickbooks::RequestProcessor; 
 

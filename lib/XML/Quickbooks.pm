@@ -38,6 +38,12 @@ sub responseok {
 	  
 }
 
+sub evalute {
+    my($self, $r)=@_;
+    $self->response($r);
+    $self->responseok;
+}
+    
 
 =head1 SYNOPSIS
 
@@ -51,6 +57,17 @@ This method does something experimental.
 
 This method returns a reason.
 
+=head1 ACKNOWLEDGEMENTS
+
+=head2 Matthew S. Trout
+
+    [16:27] <mst> uh, perl always adds '.' to @INC
+    [16:28] <mst> well, except when running setuid
+    [16:28] <mst> this is how Module::Install's 'use inc::Module::Install' works
+
+    [16:38] <mst> metaperl: just add the Test::More functions to your @EXPORT
+    [16:38] <mst> presto fucking exporto :)
+
 =head1 SEE ALSO
 
 =for :list
@@ -58,6 +75,7 @@ This method returns a reason.
 * L<SDK Reference|https://member.developer.intuit.com/qbSDK-Current/doc/html/wwhelp/wwhimpl/js/html/wwhelp.htm?context=QBSDKProGuide&topic=QBSDKProGuide2>
 * L<SDK Index|https://ipp.developer.intuit.com/0085_QuickBooks_Windows_SDK/010_qb/0050_Documentation/Manuals>
 * L<Intuit Forums|https://idnforums.intuit.com/categories.aspx?catid=7>
+* L<Early sample code|http://www.devx.com/xml/Article/30482/1954>
 
 =cut
 1;
