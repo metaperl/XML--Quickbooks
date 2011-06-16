@@ -1,4 +1,4 @@
-package U;
+package t::lib::U;
 
 require Exporter;
 our @ISA = qw(Exporter);

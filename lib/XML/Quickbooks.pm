@@ -28,6 +28,7 @@ sub responseok {
      my $elem = $self->responsetree->look_down($s => qr/.+/);
      #warn $elem->as_HTML;
      my $status = $elem->attr($s);
+     #warn "status message: $status";
      if ($status eq 'Status OK') {
 	  1;
      } else {
@@ -38,7 +39,7 @@ sub responseok {
 	  
 }
 
-sub evalute {
+sub evaluate {
     my($self, $r)=@_;
     $self->response($r);
     $self->responseok;

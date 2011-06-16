@@ -19,6 +19,20 @@ use XML::Quickbooks::RequestProcessor;
 my $p = XML::Quickbooks::RequestProcessor->new;
 my ($response) = $p->process($CustomerAdd->request);
 
-ok ($CustomerAdd->evaluate($response), 'Check response');
+#warn "r: $response";
+
+sub mytest {
+    if (
+	(not $CustomerAdd->evaluate($response)) &&
+	($CustomerAdd->responseerror =~ /too long/)) {
+      1;
+    } else {
+      0;
+    }
+  }
+
+
+
+ok (mytest, 'evaluaton of response must be failure based on data being too long');
 
 done_testing();
