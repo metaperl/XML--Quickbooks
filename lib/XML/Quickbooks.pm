@@ -7,6 +7,7 @@ has 'request' => (is => 'rw');
 has 'response' => (is => 'rw');
 has 'responsetree' => (is => 'rw', lazy_build => 1);
 has 'responseerror' => (is => 'rw');
+has 'tree' => (is => 'rw');
 
 use Carp;
 
@@ -14,9 +15,9 @@ sub _build_responsetree {
      my($self)=@_;
 
      use XML::TreeBuilder;
-     my $tree = XML::TreeBuilder->new;
-     $tree->parse($self->response);
-     $tree;
+     $self->tree(XML::TreeBuilder->new);
+     $self->tree->parse($self->response);
+     $self->tree;
 }
 
 
@@ -44,7 +45,11 @@ sub evaluate {
     $self->response($r);
     $self->responseok;
 }
-    
+
+sub DEMOLISH {
+my($self)=@_;
+$self->tree->delete if $self->tree;
+}
 
 =head1 SYNOPSIS
 

@@ -17,7 +17,21 @@ sub as_xml {
 			     inner()
 			     ));
 
-     $self->request('<?xml version="1.0" encoding="utf-8"?> <?qbxml version="10.0"?>' . $x);
+     my $tree = XML::TreeBuilder->new({ 'NoExpand' => 0, 'ErrorContext' => 0 });
+     $tree->parse($x);
+     my @elem = $tree->look_down('_tag' => qr/.+/);
+     for my $elem (@elem) {
+	 $elem->delete if $elem->is_empty();
+     }
+
+     my $xml = sprintf '%s %s %s',
+     '<?xml version="1.0" encoding="utf-8"?>',
+     '<?qbxml version="10.0"?>',
+     $tree->as_XML(undef, '  ');
+
+     $tree->delete;
+
+     $self->request($xml);
 }
 
 =head1 NAME

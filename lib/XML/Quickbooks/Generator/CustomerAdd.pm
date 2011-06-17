@@ -4,6 +4,7 @@ use Moose;
 
 extends 'XML::Quickbooks::Generator';
 
+
 use XML::Generator ':pretty';
 
 augment 'as_xml' => sub {
