@@ -1,0 +1,223 @@
+<p>
+  Moose has a very nice method modifier called <CODE>augment</CODE> that allows one
+to use OO inheritance to separate general and specific XML
+rendering. For instance, if all of your XML must have certain outer
+wrapper tags, then your base class method can build that XML and call
+inner(). Using [mod://XML::Generator] your base class would be:
+</p>
+
+<CODE>
+	  QBXML(
+		QBXMLMsgsRq( {onError => "stopOnError"},
+			     inner()
+			     ));
+</CODE>
+
+<p>And a specific inner class to build inner XML might be:</p>
+
+<CODE>
+augment 'as_xml' => sub {
+    my ($self, $name)=@_;
+
+      VendorAddRq(
+	  VendorAdd(
+	      Name($name)));
+};
+</CODE>
+
+<P>
+Well, that's a very nice start on taking the directed-graph nature of
+XML and layering it on the directed-graph nature of class-based oo
+inheritance.
+</P>
+
+<h3>problem statement</h3>
+
+<P>
+Ok, so what happens when there are numerous optional, nested child
+nodes? For instance, the code above generates the general wrapper and
+specific code for the required fields of a Quickbooks VendorAdd request: 
+<CODE>
+  <?xml version="1.0" encoding="utf-8"?>
+  <?qbxml version="10.0"?>
+  <QBXML>
+    <QBXMLMsgsRq onError="stopOnError"> 
+      <VendorAddRq> 
+	<VendorAdd> <!-- required --> 
+	  <Name >STRTYPE</Name> <!-- required -->
+	</VendorAdd>
+      </VendorAddRq>
+    </QBXMLMsgsRq>
+  </QBXML>
+</CODE>
+
+
+</CODE>
+
+</P>
+<P>
+
+but as you can see, there are numerous optional nodes that are
+children or grandchildren of the <CODE>VendorAdd</CODE> element.
+<CODE>
+  <?xml version="1.0" encoding="utf-8"?>
+  <?qbxml version="10.0"?>
+  <QBXML>
+    <QBXMLMsgsRq onError="stopOnError"> 
+      <VendorAddRq> 
+	<VendorAdd> <!-- required --> 
+	  <Name >STRTYPE</Name> <!-- required -->
+	  <IsActive >BOOLTYPE</IsActive> <!-- optional -->
+	  <CompanyName >STRTYPE</CompanyName> <!-- optional -->
+	  <Salutation >STRTYPE</Salutation> <!-- optional -->
+	  <FirstName >STRTYPE</FirstName> <!-- optional -->
+	  <MiddleName >STRTYPE</MiddleName> <!-- optional -->
+	  <LastName >STRTYPE</LastName> <!-- optional -->
+	  <VendorAddress> <!-- optional --> 
+	    <Addr1 >STRTYPE</Addr1> <!-- optional -->
+	    <Addr2 >STRTYPE</Addr2> <!-- optional -->
+	    <Addr3 >STRTYPE</Addr3> <!-- optional -->
+	    <Addr4 >STRTYPE</Addr4> <!-- optional -->
+	    <Addr5 >STRTYPE</Addr5> <!-- optional -->
+	    <City >STRTYPE</City> <!-- optional -->
+	    <State >STRTYPE</State> <!-- optional -->
+	    <PostalCode >STRTYPE</PostalCode> <!-- optional -->
+           </VendorAddress>
+	</VendorAdd>
+      </VendorAddRq>
+    </QBXMLMsgsRq>
+  </QBXML>
+</CODE>
+</P>
+
+<h4>so the question is</h4>
+
+<p>
+How do you handle conditional, nested generation of XML using
+object-oriented mechanisms? As I write this, it seems the best way is
+for these various children to be various Roles ([mod://Moose::Role])
+which you can can call to build the various children, all of which
+know where in the tree to place themselves, and only place themselves
+there if they were constructed with renderable data. Ie, if they were
+null, then they simply dont render. 
+</p>
+<P>
+Practically, if you pull a row from the database, then you want to
+throw that row at a series of constructors, heedless of whether the
+values or defined or not and only have the instances render in the
+tree is the particular data column were defined
+<P>
+
+<h3>CPAN</h3>
+<h4>XML::Toolkit</h4>
+[mod://XML::Toolkit] does parse a sample XML file and turn it into a
+bunch of classes. It is much more typing to build XML than with
+[mod://XML::Generator] and it does not appear to subclass the parsed
+XML into an inheritance tree mimicking the XML structure --- it just
+makes a class per XML element.
+<P>
+So, any conditional rendering based on data would require tortuous
+conditionals.
+
+<h4>XML::Rabbit</h4>
+[mod://XML::Rabbit] is a very neat idea for *consuming* XML. It uses
+XPath so that each attribute knows where to get itself from. So, if
+XML::Toolkit had parsed the XML and created a bunch of attributes with
+XPath saying where it belonged, then you could simply instantiate an
+object with a hashref of data and only the defined attributes would go
+about rendering themselves!
+
+<h4>XML::Writer::Nest</h4>
+[mod://XML::Writer::Nest] is an extension of [mod://XML::Writer] that basically allows for 
+nested XML to be created by leveraging the automatic destructor call for scalars leaving scope.
+Thus for the generating XML similar to above we would have:
+
+<CODE>
+{ my $VendorAddRq = XML::Writer::Nest->new(tag => 'VendorAddRq');
+
+   { my $VendorAdd = $VendorAddRq->nest('VendorAdd');
+   
+     { my $Name = $VendorAdd->data(Name => $name) }
+  }
+}
+</CODE>
+
+And then for optional nested nodes, we would have nested code which would optionally create 
+objects:
+<CODE>
+   { my $VendorAdd = $VendorAddRq->nest('VendorAdd');
+   
+     { my $Name = $VendorAdd->data(Name => $name) }
+     { my $IsActive = $row->{active} ? $VendorAdd->data(IsActive => 1) : 0 }
+  }
+   
+</CODE>
+
+<p>
+What happens is the <CODE>Inactive</CODE> node gets rendered as a function of whether or not the
+incoming hashref has <CODE>active</CODE> set. If it's set, then <CODE>$IsActive</CODE> will be 
+an object that is
+designed to render nested XML. Otherwise,  <CODE>$IsActive</CODE> is a normal scalar and 
+no XML will be rendered.
+</p>
+
+<h4>XML::Generator</h4>
+[mod://XML::Generator] code would be similar. But each conditional rendering would have to be a 
+subroutine which returns empty string or auto-generates XML:
+
+<CODE>
+      VendorAddRq(
+	  VendorAdd(
+	      Name($name),
+              maybeRenderIsActive($row)
+           )
+       )
+</CODE>
+
+<H3>SUMMARY</h3>
+
+perhaps the direct approach of [mod://XML::Generator] and [mod://XML::Writer::Nest] is all that
+is needed? They certainly have a lot less requirements in terms of understanding heavy-duty
+Moose concepts like Traits. But maybe there a good wedding between the tree that is XML and the
+tree that is a hiearchy of Moose objects?
+
+<P>
+For configurable software construction, the problem with XML::Generator and XML::Writer::Nest
+is separating XML construction from the boolean function to decide whether to render. In other
+words, each user of your nested optional XML "specification" should be able to hook in their 
+desired subroutines for deciding which nodes should render. Thus, the above XML::Generator really
+should look like this:
+
+<CODE>
+
+augment 'as_xml' => sub {
+    my ($self, $name, $optionaldata)=@_;
+
+      VendorAddRq(
+	  VendorAdd(
+	      Name($name),
+              $self->logic_engine->maybeRenderIsActive(@_) # just give it the whole indata
+           )
+       )
+</CODE>
+
+And the programmer can override the default logic_engine with methods based on the data and
+business requirements. For instance, the default logic_engine might look like this:
+
+<CODE>
+
+package XML::Quickbooks::LogicEngine;
+
+sub IsActive {
+  my ($self, $name, $databaserow)=@_;
+
+  $databaserow->{active};
+}
+
+1;
+</CODE>
+
+And then a developer has the choice of mapping his hashref to the same values as the logic engine
+or supplying his own logic engine.
+
+

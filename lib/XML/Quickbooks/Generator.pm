@@ -5,6 +5,8 @@ use Moose;
 
 extends 'XML::Quickbooks';
 
+has 'warnxml' => (is => 'rw', default => 0);
+
 use Carp;
 use XML::Generator ':pretty';
 
@@ -24,12 +26,14 @@ sub as_xml {
 	 $elem->delete if $elem->is_empty();
      }
 
-     my $xml = sprintf '%s %s %s',
+     my $xml = sprintf "%s\n%s\n%s",
      '<?xml version="1.0" encoding="utf-8"?>',
      '<?qbxml version="10.0"?>',
      $tree->as_XML(undef, '  ');
 
      $tree->delete;
+
+     Carp::cluck($xml) if ($self->warnxml);
 
      $self->request($xml);
 }

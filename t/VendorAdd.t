@@ -18,4 +18,12 @@ $VendorAdd->response($response);
 
 ok ($VendorAdd->responseok, 'Check response');
 
+# ---------------------------
+
+my %v = (VendorTypeRef => {ListId => 'listid' . datetimestamp,
+			  FullName => 'fullname' . datetimestamp});
+
+$VendorAdd->warnxml(1);
+$VendorAdd->as_xml("Test " . datetimestamp, \%v);
+
 done_testing();
