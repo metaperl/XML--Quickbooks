@@ -20,7 +20,7 @@ ok ($VendorAdd->responseok, 'Check response');
 
 # ---------------------------
 
-my %v = (VendorTypeRef => {ListId => 'listid' . datetimestamp,
+my %v = (VendorTypeRef => {ListID => 'listid' . datetimestamp,
 			  FullName => 'fullname' . datetimestamp});
 
 $VendorAdd->warnxml(1);

@@ -24,7 +24,7 @@ sub maybeVendorTypeRef {
   return unless my $v = $opt->{VendorTypeRef};
 
   VendorTypeRef(
-		$self->hashrender(ListID   => $v),
+		$self->hashrender(ListID   => $v) ,
 		$self->hashrender(FullName => $v)
 	       );
 
