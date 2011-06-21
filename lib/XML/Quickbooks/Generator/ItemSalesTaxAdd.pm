@@ -10,18 +10,18 @@ use XML::Generator ':pretty';
 
 augment 'as_xml' => sub {
   my $self = shift;
-  my ($name, $opt)=@_;
+  my ($opt)=@_;
 
   ItemSalesTaxAddRq(
 		ItemSalesTaxAdd(
-			    Name($name),
+			    Name($opt->{name}),
 			    $self->maybeTaxRate(@_),
 			    $self->maybeTaxVendorRef(@_)
 			   ));
 };
 
 sub maybeTaxRate {
-  my($self,$name,$opt)=@_;
+  my($self,$opt)=@_;
 
   return unless $opt;
   return unless my $v = $opt->{TaxRate}; # dont render tax rate of 0
@@ -31,7 +31,7 @@ sub maybeTaxRate {
 }
 
 sub maybeTaxVendorRef {
-  my($self,$name,$opt)=@_;
+  my($self,$opt)=@_;
 
   return unless $opt;
   return unless $opt->{TaxRate};

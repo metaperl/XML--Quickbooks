@@ -4,6 +4,8 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(datetimestamp);
 
+use Data::Random;
+
 
 use DateTime;
 

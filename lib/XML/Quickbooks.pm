@@ -7,6 +7,7 @@ has 'request' => (is => 'rw');
 has 'response' => (is => 'rw');
 has 'responsetree' => (is => 'rw', lazy_build => 1);
 has 'responseerror' => (is => 'rw');
+
 has 'tree' => (is => 'rw');
 
 use Carp;
@@ -18,6 +19,16 @@ sub _build_responsetree {
      $self->tree(XML::TreeBuilder->new);
      $self->tree->parse($self->response);
      $self->tree;
+}
+
+sub responselistid {
+  my($self)=@_;
+
+  my $t = $self->responsetree;
+  my $elem = $t->look_down('_tag' => 'ListID');
+  my ($listid) = $elem->content_list;
+  $listid;
+
 }
 
 
@@ -44,6 +55,17 @@ sub evaluate {
     my($self, $r)=@_;
     $self->response($r);
     $self->responseok;
+}
+
+sub process {
+  my $self = shift;
+
+  $self->as_xml(@_);
+
+  use XML::Quickbooks::RequestProcessor; 
+
+  my $p = XML::Quickbooks::RequestProcessor->new;
+  my ($response) = $p->process($self->request);
 }
 
 sub DEMOLISH {

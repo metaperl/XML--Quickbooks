@@ -4,7 +4,7 @@ package XML::Quickbooks::Util;
 use Moose::Role;
 
 sub trunc {
-  my($self,$length, $string)=@_;
+  my($self, $length, $string)=@_;
 
   substr($string, 0, $length);
 

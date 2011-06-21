@@ -8,17 +8,17 @@ with    'XML::Quickbooks::Util';
 use XML::Generator ':pretty';
 
 augment 'as_xml' => sub {
-    my ($self, $name, $opt)=@_;
+    my ($self, $opt)=@_;
 
     VendorAddRq(
 		VendorAdd(
-			  Name($name),
-			  $self->maybeVendorTypeRef($name, $opt)
+			  Name($opt->{name}),
+			  $self->maybeVendorTypeRef($opt)
 		   ));
 };
 
 sub maybeVendorTypeRef {
-  my($self,$name,$opt)=@_;
+  my($self,$opt)=@_;
 
   return unless $opt;
   return unless my $v = $opt->{VendorTypeRef};

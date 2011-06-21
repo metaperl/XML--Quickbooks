@@ -5,13 +5,17 @@ use t::lib::U;
 
 use XML::Quickbooks::Generator::EmployeeAdd;
 
-my $EmployeeAdd = XML::Quickbooks::Generator::EmployeeAdd->new;
+my $EmployeeAdd = XML::Quickbooks::Generator::EmployeeAdd->new(warnxml=>1);
 
-my %row = (userfullname => 'John James' . datetimestamp);
+
+my %row = (userfullname => sprintf 'Test %s %s', 
+	   Data::Random::rand_words,
+	   Data::Random::rand_words);
+
+use Data::Dumper;
+warn Dumper(\%row);
 
 $EmployeeAdd->as_xml(\%row);
-
-warn "XML" . $EmployeeAdd->request;
 
 
 use XML::Quickbooks::RequestProcessor; 

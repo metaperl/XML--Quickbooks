@@ -7,7 +7,7 @@ use XML::Quickbooks::Generator::VendorAdd;
 
 my $VendorAdd = XML::Quickbooks::Generator::VendorAdd->new;
 
-$VendorAdd->as_xml("Test " . datetimestamp);
+$VendorAdd->as_xml({ name => "Test " . datetimestamp});
 
 use XML::Quickbooks::RequestProcessor; 
 
@@ -22,8 +22,9 @@ ok ($VendorAdd->responseok, 'Check response');
 
 my %v = (VendorTypeRef => {ListID => 'listid' . datetimestamp,
 			  FullName => 'fullname' . datetimestamp});
+$v{name} = 'TestVend ' . datetimestamp;
 
 $VendorAdd->warnxml(1);
-$VendorAdd->as_xml("Test " . datetimestamp, \%v);
+$VendorAdd->as_xml(\%v);
 
 done_testing();

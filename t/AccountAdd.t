@@ -3,13 +3,14 @@
 use t::lib::T;
 use t::lib::U;
 
-use XML::Quickbooks::Generator::ItemSalesTaxAdd;
+use XML::Quickbooks::Generator::AccountAdd;
 
-my $rxml = XML::Quickbooks::Generator::ItemSalesTaxAdd->new(warnxml => 1);
+my $rxml = XML::Quickbooks::Generator::AccountAdd->new(warnxml => 1);
 
-my %opt = (name => 'CO Tax' . datetimestamp, TaxRate => '4.5');
+my $tmpnam = "Test " . datetimestamp();
+my $account_type = 'Income';
 
-$rxml->as_xml(\%opt);
+$rxml->as_xml({name => $tmpnam,  account_type => $account_type});
 
 use XML::Quickbooks::RequestProcessor;
 

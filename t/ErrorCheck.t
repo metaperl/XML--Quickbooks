@@ -12,7 +12,7 @@ use UUID::Tiny;
 my $tmpnam = substr("TestCustomer " . create_UUID_as_string(UUID_V1), 0 , 80);
 
 
-$CustomerAdd->as_xml($tmpnam);
+$CustomerAdd->as_xml({name => $tmpnam});
 
 use XML::Quickbooks::RequestProcessor; 
 
