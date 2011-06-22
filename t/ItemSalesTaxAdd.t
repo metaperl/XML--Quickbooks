@@ -1,21 +1,19 @@
-#!/usr/bin/perl
-
 use t::lib::T;
 use t::lib::U;
 
 use XML::Quickbooks::Generator::ItemSalesTaxAdd;
 
-my $rxml = XML::Quickbooks::Generator::ItemSalesTaxAdd->new(warnxml => 1);
+my $Operation = XML::Quickbooks::Generator::ItemSalesTaxAdd->new(
+  warnrequest  => 1,
+  warnresponse => 1
+ );
+my %arg = (
+  Name => 'Test ' . datetimestamp,
+  TaxRate => 4.53,
+ );
 
-my %opt = (name => 'CO Tax' . datetimestamp, TaxRate => '4.5');
+$Operation->submit(\%arg);
 
-$rxml->as_xml(\%opt);
-
-use XML::Quickbooks::RequestProcessor;
-
-my $p = XML::Quickbooks::RequestProcessor->new;
-my ($response) = $p->process($rxml->request);
-
-ok ($rxml->evaluate($response), 'Check response');
+ok ($Operation->responseok, 'Check response');
 
 done_testing();

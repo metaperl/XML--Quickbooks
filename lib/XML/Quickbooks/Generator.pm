@@ -5,7 +5,7 @@ use Moose;
 
 extends 'XML::Quickbooks';
 
-has 'warnxml' => (is => 'rw', default => 0);
+
 
 use Carp;
 use XML::Generator ':pretty';
@@ -33,10 +33,22 @@ sub as_xml {
 
      $tree->delete;
 
-     Carp::cluck($xml) if ($self->warnxml);
+     warn 'Setting Request...';
 
      $self->request($xml);
+     warn "Setting Request...DONE: $xml";
+
 }
+
+sub maybeFullName {
+  my($self,$opt)=@_;
+
+  return unless $opt and my $f = $opt->{FullName} // undef ;
+
+  FullName($f);
+
+}
+
 
 =head1 NAME
 

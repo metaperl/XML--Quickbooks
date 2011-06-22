@@ -12,7 +12,7 @@ augment 'as_xml' => sub {
 
       CustomerAddRq(
 	  CustomerAdd(
-	      Name($opt->{name})));
+	      Name($opt->{Name})));
 };
 	       
 

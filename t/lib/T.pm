@@ -1,5 +1,10 @@
 package t::lib::T;
 
-use Test::Kit qw(Test::More Test::XML);
+use strict;
+use warnings;
+
+use Test::Kit qw(
+		  Test::More Test::XML
+	       );
 
 1;

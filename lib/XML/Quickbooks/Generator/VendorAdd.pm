@@ -12,7 +12,7 @@ augment 'as_xml' => sub {
 
     VendorAddRq(
 		VendorAdd(
-			  Name($opt->{name}),
+			  Name($opt->{Name}),
 			  $self->maybeVendorTypeRef($opt)
 		   ));
 };

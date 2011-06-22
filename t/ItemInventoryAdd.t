@@ -1,5 +1,8 @@
 #!/usr/bin/perl
 
+use strict;
+use warnings;
+
 use t::lib::T;
 use t::lib::U;
 
@@ -7,35 +10,38 @@ use t::lib::U;
 
 use XML::Quickbooks::Generator::AccountAdd;
 
-my @acct_type = qw(Income COGS Asset)
-my %name;
-
+my @acct_type = qw(Income CostOfGoodsSold OtherCurrentAsset);
+my %arg;
 
 for my $acct_type (@acct_type) {
 
-  my $rxml = XML::Quickbooks::Generator::AccountAdd->new();
-  $name{$acct_type} = "Test $account_type" . datetime;
-  my %arg = (name => $name{$account_type}, account_type $account_type);
-  $rxml->process(%arg);
 
+  warn $acct_type;
+
+  my $Operation = XML::Quickbooks::Generator::AccountAdd->new(warnxml => 1);
+  my $name = "Test $acct_type" . timestamp;
+  my %localarg = (Name => $name, AccountType => $acct_type);
+  $Operation->dumper(\%localarg);
+  $Operation->submit(\%localarg);
+  warn 'response ' . $Operation->response;
+  $Operation->responseok or die $Operation->responsemsg;
+  $acct_type = 'COGS' if $acct_type eq 'CostOfGoodsSold';
+  $acct_type = 'Asset' if $acct_type eq 'OtherCurrentAsset';
+  $arg{$acct_type . 'AccountRef'}{FullName} = $name;
 }
 
 
 use XML::Quickbooks::Generator::ItemInventoryAdd;
 
-my $rxml = XML::Quickbooks::Generator::ItemInventoryAdd->new(warnxml => 1);
+my $Op = XML::Quickbooks::Generator::ItemInventoryAdd->new(warnxml => 1);
 
-my $tmpnam = "Test Inv " . datetimestamp();
+$arg{Name} = "Test Inv " . datetimestamp();
+$Op->dumper(\%arg);
 
-$rxml->as_xml($tmpnam);
+$Op->submit(\%arg);
 
-use XML::Quickbooks::RequestProcessor; 
+warn $Op->responsemsg;
 
-my $p = XML::Quickbooks::RequestProcessor->new;
-my ($response) = $p->process($rxml->request);
-
-$rxml->response($response);
-
-ok ($rxml->responseok, 'Check response');
+ok ($Op->responseok, 'Check response');
 
 done_testing();

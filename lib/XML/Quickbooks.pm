@@ -3,22 +3,51 @@ package XML::Quickbooks;
 
 use Moose;
 
-has 'request' => (is => 'rw');
-has 'response' => (is => 'rw');
-has 'responsetree' => (is => 'rw', lazy_build => 1);
-has 'responseerror' => (is => 'rw');
+has 'request' => (
+  is => 'rw',
+  trigger => \&_warnrequest
+ );
+
+has 'response' => (
+  is => 'rw',
+  trigger => \&_warnresponse
+ );
 
 has 'tree' => (is => 'rw');
 
+has 'warnrequest'  => (is => 'rw', default => 0);
+has 'warnresponse' => (is => 'rw', default => 0);
+
+sub _warnrequest {
+  my ($self)=@_;
+  $self->warnrequest and Carp::cluck($self->request);
+}
+
+sub _warnresponse {
+  my ($self)=@_;
+  $self->warnresponse and Carp::cluck($self->response);
+}
+
 use Carp;
 
-sub _build_responsetree {
-     my($self)=@_;
+sub dumper {
+  my ($self, $ref)=@_;
+  use Data::Dumper;
+  warn Dumper($ref);
+}
 
-     use XML::TreeBuilder;
-     $self->tree(XML::TreeBuilder->new);
-     $self->tree->parse($self->response);
-     $self->tree;
+sub responsetree {
+  my($self)=@_;
+
+  use XML::TreeBuilder;
+  $self->tree(XML::TreeBuilder->new);
+
+  if (length $self->response < 5) {
+    Carp::confess('response is too small');
+  }
+  
+  $self->tree->parse($self->response);
+  $self->tree;
 }
 
 sub responselistid {
@@ -31,30 +60,41 @@ sub responselistid {
 
 }
 
+sub responsecode {
+  my($self)=@_;
+
+  my $s = 'statusCode';
+  #warn $self->responsetree;
+  my $elem = $self->responsetree->look_down($s => qr/.+/);
+  #warn $elem->as_HTML;
+  my $status = $elem->attr($s);
+  int($status);
+}
+
 
 sub responseok {
-     my($self)=@_;
+  my($self)=@_;
 
-     my $s = 'statusMessage';
-     #warn $self->responsetree;
-     my $elem = $self->responsetree->look_down($s => qr/.+/);
-     #warn $elem->as_HTML;
-     my $status = $elem->attr($s);
-     #warn "status message: $status";
-     if ($status eq 'Status OK') {
-	  1;
-     } else {
-	  $self->responseerror($status);
-	  Carp::cluck($status);
-	  0;
-     }
-	  
+  not $self->responsecode;
+}
+
+sub responsemsg {
+  my($self)=@_;
+
+  my $s = 'statusMessage';
+  #warn $self->responsetree;
+  my $elem = $self->responsetree->look_down($s => qr/.+/);
+  #warn $elem->as_HTML;
+  my $status = $elem->attr($s);
 }
 
 sub evaluate {
-    my($self, $r)=@_;
-    $self->response($r);
-    $self->responseok;
+  my($self, $r)=@_;
+
+  my $response = $r // $self->response;
+
+  $self->response($response);
+  $self->responseok;
 }
 
 sub process {
@@ -66,11 +106,15 @@ sub process {
 
   my $p = XML::Quickbooks::RequestProcessor->new;
   my ($response) = $p->process($self->request);
+  $self->response($response);
+  $response;
 }
 
+sub submit { goto &process; }
+
 sub DEMOLISH {
-my($self)=@_;
-$self->tree->delete if $self->tree;
+  my($self)=@_;
+  $self->tree->delete if $self->tree;
 }
 
 =head1 SYNOPSIS

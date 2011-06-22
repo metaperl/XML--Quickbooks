@@ -9,7 +9,7 @@ my $CustomerAdd = XML::Quickbooks::Generator::CustomerAdd->new;
 
 my $tmpnam = "Test " . datetimestamp();
 
-$CustomerAdd->as_xml({name => $tmpnam});
+$CustomerAdd->as_xml({Name => $tmpnam});
 
 use XML::Quickbooks::RequestProcessor; 
 

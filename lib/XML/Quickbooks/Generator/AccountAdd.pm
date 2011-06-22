@@ -3,7 +3,7 @@ package XML::Quickbooks::Generator::AccountAdd;
 use Moose;
 
 extends 'XML::Quickbooks::Generator';
-
+with    'XML::Quickbooks::Util';
 
 use XML::Generator ':pretty';
 
@@ -12,8 +12,8 @@ augment 'as_xml' => sub {
 
       AccountAddRq(
 	  AccountAdd(
-		     Name($opt->{name}),
-		     AccountType($opt->{account_type})
+		     Name($self->trunc(31,$opt->{Name})),
+		     AccountType($self->trunc(31, $opt->{AccountType}))
 		    ));
 };
 	       

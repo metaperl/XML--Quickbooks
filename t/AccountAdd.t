@@ -7,10 +7,10 @@ use XML::Quickbooks::Generator::AccountAdd;
 
 my $rxml = XML::Quickbooks::Generator::AccountAdd->new(warnxml => 1);
 
-my $tmpnam = "Test " . datetimestamp();
+my $tmpnam = "Test " . timestamp();
 my $account_type = 'Income';
 
-$rxml->as_xml({name => $tmpnam,  account_type => $account_type});
+$rxml->as_xml({Name => $tmpnam, AccountType => $account_type});
 
 use XML::Quickbooks::RequestProcessor;
 
