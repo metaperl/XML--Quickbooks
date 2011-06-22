@@ -7,6 +7,7 @@ my $Operation = XML::Quickbooks::Generator::ItemSalesTaxAdd->new(
   warnrequest  => 1,
   warnresponse => 1
  );
+$Operation->dumper($Operation);
 my %arg = (
   Name => 'Test ' . datetimestamp,
   TaxRate => 4.53,

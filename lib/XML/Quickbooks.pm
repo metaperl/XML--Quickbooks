@@ -33,7 +33,7 @@ use Carp;
 sub dumper {
   my ($self, $ref)=@_;
   use Data::Dumper;
-  warn Dumper($ref);
+  carp Dumper($ref);
 }
 
 sub responsetree {
@@ -103,7 +103,7 @@ sub process {
   $self->as_xml(@_);
 
   use XML::Quickbooks::RequestProcessor; 
-
+  $self->dumper($self);
   my $p = XML::Quickbooks::RequestProcessor->new;
   my ($response) = $p->process($self->request);
   $self->response($response);

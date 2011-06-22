@@ -36,7 +36,7 @@ sub as_xml {
      warn 'Setting Request...';
 
      $self->request($xml);
-     warn "Setting Request...DONE: $xml";
+     Carp::cluck( "Setting Request...DONE($self->{warnrequest}): $xml");
 
 }
 

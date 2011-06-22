@@ -13,11 +13,11 @@ augment 'as_xml' => sub {
   my ($opt)=@_;
 
   ItemSalesTaxAddRq(
-		ItemSalesTaxAdd(
-			    Name($opt->{Name}),
-			    $self->maybeTaxRate(@_),
-			    $self->maybeTaxVendorRef(@_)
-			   ));
+    ItemSalesTaxAdd(
+      Name($opt->{Name}),
+      $self->maybeTaxRate(@_),
+      $self->maybeTaxVendorRef(@_)
+     ));
 };
 
 sub maybeTaxRate {
@@ -41,24 +41,30 @@ sub maybeTaxVendorRef {
   my $listid;
 
   my $vendorname = 'State Tax';
-  my $args = { Name => $vendorname };
+  my $args = { Name => $vendorname, FullName => $vendorname };
 
   use XML::Quickbooks::Generator::VendorQuery;
-  my $VQ = XML::Quickbooks::Generator::VendorQuery->new;
+  my $VQ = XML::Quickbooks::Generator::VendorQuery->new(
+    warnrequest  => 1,
+    warnresponse => 1
+   );
 
   if ($VQ->exists( $args )) {
     $listid = $VQ->responselistid;
   } else {
 
-    my $VA = XML::Quickbooks::Generator::VendorAdd->new(warnxml => 1);
+    my $VA = XML::Quickbooks::Generator::VendorAdd->new(
+      warnrequest  => 1,
+      warnresponse => 1
+     );
     $VA->submit( $args );
     $listid = $VA->responselistid;
   }
 
   TaxVendorRef(
-		ListID($listid) ,
-		FullName($vendorname)
-	       );
+    ListID($listid) ,
+    FullName($vendorname)
+   );
 
 }
 
