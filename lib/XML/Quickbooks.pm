@@ -31,9 +31,9 @@ sub _warnresponse {
 use Carp;
 
 sub dumper {
-  my ($self, $ref)=@_;
+  my $self=shift;
   use Data::Dumper;
-  carp Dumper($ref);
+  carp Dumper(@_);
 }
 
 sub responsetree {
@@ -45,7 +45,7 @@ sub responsetree {
   if (length $self->response < 5) {
     Carp::confess('response is too small');
   }
-  
+
   $self->tree->parse($self->response);
   $self->tree;
 }
@@ -100,13 +100,21 @@ sub evaluate {
 sub process {
   my $self = shift;
 
+  #warn 'forming XML';
   $self->as_xml(@_);
+  #warn 'forming XML DONE';
 
-  use XML::Quickbooks::RequestProcessor; 
-  $self->dumper($self);
+  use XML::Quickbooks::RequestProcessor;
+  #warn "How does self look: "; $self->dumper($self);
   my $p = XML::Quickbooks::RequestProcessor->new;
   my ($response) = $p->process($self->request);
+
+  #warn 'Lets see self again'; $self->dumper($self);
+
   $self->response($response);
+
+  #warn 'Lets see self one more time'; $self->dumper($self);
+
   $response;
 }
 

@@ -33,10 +33,10 @@ sub as_xml {
 
      $tree->delete;
 
-     warn 'Setting Request...';
+     #warn 'Setting Request...';
 
      $self->request($xml);
-     Carp::cluck( "Setting Request...DONE($self->{warnrequest}): $xml");
+     #Carp::cluck( "Setting Request...DONE($self->{warnrequest}): $xml");
 
 }
 
