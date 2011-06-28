@@ -6,6 +6,8 @@ use warnings;
 use t::lib::T;
 use t::lib::U;
 
+ plan skip_all => 'Test irrelevant on MacOS';
+
 # Before adding inventory, we must add the accounts related to the inventory
 
 use XML::Quickbooks::Generator::AccountAdd;

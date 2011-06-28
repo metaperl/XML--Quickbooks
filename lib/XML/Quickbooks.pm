@@ -3,6 +3,10 @@ package XML::Quickbooks;
 
 use Moose;
 
+use Carp::Always;
+
+with 'XML::Quickbooks::Util';
+
 has 'request' => (
   is => 'rw',
   trigger => \&_warnrequest
@@ -17,6 +21,7 @@ has 'tree' => (is => 'rw');
 
 has 'warnrequest'  => (is => 'rw', default => 0);
 has 'warnresponse' => (is => 'rw', default => 0);
+
 
 sub _warnrequest {
   my ($self)=@_;
@@ -36,18 +41,34 @@ sub dumper {
   carp Dumper(@_);
 }
 
+sub pretty_print {
+  my($self,$xml)=@_;
+
+  use XML::Twig;
+
+ my $twig=XML::Twig->new(   
+    pretty_print => 'indented',                # output will be nicely formatted
+                          );
+  $twig->parse($xml);
+  $twig->sprint;
+}
+
 sub responsetree {
   my($self)=@_;
 
-  use XML::TreeBuilder;
-  $self->tree(XML::TreeBuilder->new);
 
   if (length $self->response < 5) {
     Carp::confess('response is too small');
   }
 
-  $self->tree->parse($self->response);
-  $self->tree;
+
+  use XML::TreeBuilder;
+
+  my $tree = XML::TreeBuilder->new({ 'NoExpand' => 0, 'ErrorContext' => 0 });
+  $tree->parse($self->response);
+
+  $self->tree($tree);
+  $tree;
 }
 
 sub responselistid {

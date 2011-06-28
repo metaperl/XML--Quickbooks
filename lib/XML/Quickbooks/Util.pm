@@ -3,6 +3,34 @@ package XML::Quickbooks::Util;
 
 use Moose::Role;
 
+sub gnew {
+  my($self, $pkgtail, @constructor_args)=@_;
+
+  use Class::MOP;
+  my $class = "XML::Quickbooks::Generator::$pkgtail";
+  Class::MOP::load_class($class);
+  $class->new(@constructor_args);
+}
+
+sub tknew {
+  my($self, $pkgtail, @constructor_args)=@_;
+
+  use Class::MOP;
+  my $class = "XML::Quickbooks::Tk::$pkgtail";
+  Class::MOP::load_class($class);
+  $class->new(@constructor_args);
+}
+
+sub tbnew {
+  my($self, $pkgtail, @constructor_args)=@_;
+
+  use Class::MOP;
+  my $class = "XML::Quickbooks::Tk::$pkgtail";
+  Class::MOP::load_class($class);
+  $class->new(@constructor_args);
+}
+
+
 sub trunc {
   my($self, $length, $string)=@_;
 

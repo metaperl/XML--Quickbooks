@@ -23,11 +23,11 @@ augment 'as_xml' => sub {
 sub accountRef {
   my($self, $tagname, $opt)=@_;
   
-    my $X = XML::Generator->new(pretty    => 2);
+  my $X = XML::Generator->new(pretty    => 2);
   my $subhash = $opt->{$tagname};
   $X->$tagname(
-    	$self->hashrender(ListID => $subhash),
-	$self->hashrender(FullName => $subhash)
+    $self->hashrender(ListID => $subhash),
+    $self->hashrender(FullName => $subhash)
    );
 
 }
