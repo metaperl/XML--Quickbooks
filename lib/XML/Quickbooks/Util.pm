@@ -3,11 +3,11 @@ package XML::Quickbooks::Util;
 
 use Moose::Role;
 
-sub gnew {
+sub lnew {
   my($self, $pkgtail, @constructor_args)=@_;
 
   use Class::MOP;
-  my $class = "XML::Quickbooks::Generator::$pkgtail";
+  my $class = "XML::Quickbooks::Tolol::$pkgtail";
   Class::MOP::load_class($class);
   $class->new(@constructor_args);
 }

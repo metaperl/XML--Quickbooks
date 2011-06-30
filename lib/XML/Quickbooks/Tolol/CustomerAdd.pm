@@ -1,7 +1,7 @@
 package XML::Quickbooks::Tolol::CustomerAdd;
 use Moose;
 
-extends qw(XML::Quickbooks::Tolol);
+extends qw(XML::Quickbooks::Tolol::VendorAdd);
 
 use Data::Diver qw( Dive DiveRef DiveError );
 use XML::Element;

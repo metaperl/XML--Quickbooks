@@ -53,6 +53,17 @@ sub pretty_print {
   $twig->sprint;
 }
 
+sub warnall {
+  qw(warnrequest => 1 warnresponse => 1);
+}
+
+sub exists {
+  my($self,$opt)=@_;
+
+  $self->submit($opt);
+  $self->responseok;
+}
+
 sub responsetree {
   my($self)=@_;
 
