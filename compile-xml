@@ -1,0 +1,1 @@
+tolol xml/VendorAdd.xml XML::Quickbooks::Tolol::VendorAdd 4 lib "extends qw(XML::Quickbooks::Tolol)"

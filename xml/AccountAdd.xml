@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="10.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError"> 
+    <AccountAddRq> 
+      <AccountAdd> <!-- required --> 
+	<Name >STRTYPE</Name> <!-- required -->
+	<IsActive >BOOLTYPE</IsActive> <!-- optional -->
+	<ParentRef> <!-- optional --> 
+	  <ListID >IDTYPE</ListID> <!-- optional -->
+	  <FullName >STRTYPE</FullName> <!-- optional -->
+	</ParentRef>
+	<!-- AccountType may have one of the following values: AccountsPayable, AccountsReceivable, Bank, CostOfGoodsSold, CreditCard, Equity, Expense, FixedAsset, Income, LongTermLiability, NonPosting, OtherAsset, OtherCurrentAsset, OtherCurrentLiability, OtherExpense, OtherIncome -->
+	<AccountType >ENUMTYPE</AccountType> <!-- required -->
+	<AccountNumber >STRTYPE</AccountNumber> <!-- optional -->
+	<BankNumber >STRTYPE</BankNumber> <!-- optional -->
+	<Desc >STRTYPE</Desc> <!-- optional -->
+	<OpenBalance >AMTTYPE</OpenBalance> <!-- optional -->
+	<OpenBalanceDate >DATETYPE</OpenBalanceDate> <!-- optional -->
+	<TaxLineID >INTTYPE</TaxLineID> <!-- optional -->
+	<CurrencyRef> <!-- optional --> 
+	  <ListID >IDTYPE</ListID> <!-- optional -->
+	  <FullName >STRTYPE</FullName> <!-- optional -->
+	</CurrencyRef>
+      </AccountAdd>
+      <IncludeRetElement >STRTYPE</IncludeRetElement> <!-- optional, may repeat -->
+    </AccountAddRq>
+  </QBXMLMsgsRq>
+</QBXML>

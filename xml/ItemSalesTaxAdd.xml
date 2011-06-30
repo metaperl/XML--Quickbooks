@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="10.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError"> 
+    <ItemSalesTaxAddRq> 
+      <ItemSalesTaxAdd> <!-- required --> 
+	<Name >STRTYPE</Name> <!-- required -->
+	<IsActive >BOOLTYPE</IsActive> <!-- optional -->
+	<ItemDesc >STRTYPE</ItemDesc> <!-- optional -->
+	<TaxRate >PERCENTTYPE</TaxRate> <!-- optional -->
+	<TaxVendorRef> <!-- optional --> 
+	  <ListID >IDTYPE</ListID> <!-- optional -->
+	  <FullName >STRTYPE</FullName> <!-- optional -->
+	</TaxVendorRef>
+	<ExternalGUID >GUIDTYPE</ExternalGUID> <!-- optional -->
+      </ItemSalesTaxAdd>
+      <IncludeRetElement >STRTYPE</IncludeRetElement> <!-- optional, may repeat -->
+    </ItemSalesTaxAddRq>
+  </QBXMLMsgsRq> 
+</QBXML>
