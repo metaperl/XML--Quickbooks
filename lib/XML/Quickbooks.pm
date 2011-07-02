@@ -4,6 +4,7 @@ package XML::Quickbooks;
 use Moose;
 
 use Carp::Always;
+use XML::Element;
 
 with 'XML::Quickbooks::Util';
 

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?qbxml version="10.0"?>
+<QBXML>
+  <QBXMLMsgsRq onError="stopOnError"> 
+    <ItemDiscountAddRq> 
+      <ItemDiscountAdd> <!-- required --> 
+	<Name >STRTYPE</Name> <!-- required -->
+	<IsActive >BOOLTYPE</IsActive> <!-- optional -->
+	<ParentRef> <!-- optional --> 
+	  <ListID >IDTYPE</ListID> <!-- optional -->
+	  <FullName >STRTYPE</FullName> <!-- optional -->
+	</ParentRef>
+	<ItemDesc >STRTYPE</ItemDesc> <!-- optional -->
+	<SalesTaxCodeRef> <!-- optional --> 
+	  <ListID >IDTYPE</ListID> <!-- optional -->
+	  <FullName >STRTYPE</FullName> <!-- optional -->
+	</SalesTaxCodeRef>
+	<!-- BEGIN OR -->
+	<DiscountRate >PRICETYPE</DiscountRate> <!-- optional -->
+	<!-- OR -->
+	<DiscountRatePercent >PERCENTTYPE</DiscountRatePercent> <!-- optional -->
+	<!-- END OR -->
+	<AccountRef> <!-- optional --> 
+	  <ListID >IDTYPE</ListID> <!-- optional -->
+	  <FullName >STRTYPE</FullName> <!-- optional -->
+	</AccountRef>
+	<ExternalGUID >GUIDTYPE</ExternalGUID> <!-- optional -->
+      </ItemDiscountAdd>
+      <IncludeRetElement >STRTYPE</IncludeRetElement> <!-- optional, may repeat -->
+    </ItemDiscountAddRq>
+  </QBXMLMsgsRq>
+</QBXML>

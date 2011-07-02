@@ -6,6 +6,7 @@ use Moose;
 extends 'XML::Quickbooks';
 
 use Carp::Always;
+use HTML::Element::Prune;
 
 sub as_xml {
      my ($self) = @_;
