@@ -27,6 +27,17 @@ sub as_xml {
 
 }
 
+sub build_address {
+  my($self, $row)=@_;
+  my %addr = (
+    Addr1 => $row->{address1},
+    Addr2 => $row->{address2},
+    City => $row->{city},
+    State => $row->{state},
+    PostalCode => $row->{zip}
+   );
+  \%addr;
+}
 
 sub maybeFullName {
   my($self,$opt)=@_;

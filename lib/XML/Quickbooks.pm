@@ -101,6 +101,7 @@ sub responsecode {
   my $elem = $self->responsetree->look_down($s => qr/.+/);
   #warn $elem->as_HTML;
   my $status = $elem->attr($s);
+  warn "status:$status:";
   int($status);
 }
 
@@ -148,7 +149,7 @@ sub process {
 
   #warn 'Lets see self one more time'; $self->dumper($self);
 
-  $response;
+  $self->responsecode;
 }
 
 sub submit { goto &process; }
