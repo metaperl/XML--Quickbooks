@@ -8,7 +8,6 @@ use XML::Element;
 
 has 'data' => (
     is      => 'rw',
-    isa     => 'HashRef',
     trigger => \&maybe_morph
 );
 
@@ -51,10 +50,9 @@ sub lol {
             QBXMLMsgsRq => { 'onError' => 'stopOnError' } =>
               DIVE( $root, qw() ),
             [
-                InvoiceAddRq => DIVE( $root, qw() ),
+                InvoiceAddRq => 
                 [
-                    InvoiceAdd => { 'defMacro' => 'MACROTYPE' } =>
-                      DIVE( $root, qw() ),
+                    InvoiceAdd => 
                     [
                         CustomerRef => DIVE( $root, qw(CustomerRef) ),
                         [ ListID   => DIVE( $root, qw(CustomerRef ListID) ) ],

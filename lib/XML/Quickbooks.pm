@@ -2,11 +2,15 @@ package XML::Quickbooks;
 # ABSTRACT: XML::Toolkit classes for manipulating Quickbooks
 
 use Moose;
+with 'XML::Quickbooks::Util';
 
 use Carp::Always;
 use XML::Element;
+use XML::TreeBuilder;
 
-with 'XML::Quickbooks::Util';
+use XML::Quickbooks::RequestProcessor;
+
+
 
 has 'request' => (
   is => 'rw',
@@ -74,8 +78,6 @@ sub responsetree {
   }
 
 
-  use XML::TreeBuilder;
-
   my $tree = XML::TreeBuilder->new({ 'NoExpand' => 0, 'ErrorContext' => 0 });
   $tree->parse($self->response);
 
@@ -90,6 +92,16 @@ sub responselistid {
   my $elem = $t->look_down('_tag' => 'ListID');
   my ($listid) = $elem->content_list;
   $listid;
+
+}
+
+sub responsetxnid {
+  my($self)=@_;
+
+  my $t = $self->responsetree;
+  my $elem = $t->look_down('_tag' => 'TxnID');
+  my ($txnid) = $elem->content_list;
+  $txnid;
 
 }
 
@@ -138,7 +150,7 @@ sub process {
   $self->as_xml(@_);
   #warn 'forming XML DONE';
 
-  use XML::Quickbooks::RequestProcessor;
+
   #warn "How does self look: "; $self->dumper($self);
   my $p = XML::Quickbooks::RequestProcessor->new;
   my ($response) = $p->process($self->request);

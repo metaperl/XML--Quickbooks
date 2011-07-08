@@ -3,7 +3,7 @@
 <QBXML>
   <QBXMLMsgsRq onError="stopOnError">
     <InvoiceAddRq>
-      <InvoiceAdd defMacro="MACROTYPE"> <!-- required -->
+      <InvoiceAdd> <!-- required -->
 	<CustomerRef> <!-- required -->
 	  <ListID >IDTYPE</ListID> <!-- optional -->
 	  <FullName >STRTYPE</FullName> <!-- optional -->
