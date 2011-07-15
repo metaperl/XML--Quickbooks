@@ -15,6 +15,15 @@ sub lnew {
     $class->new(@constructor_args);
 }
 
+sub wnew {
+    my ( $self, $pkgtail, @constructor_args ) = @_;
+
+    use Class::MOP;
+    my $class = "XML::Quickbooks::Writer::$pkgtail";
+    Class::MOP::load_class($class);
+    $class->new(@constructor_args);
+}
+
 sub tknew {
     my ( $self, $pkgtail, @constructor_args ) = @_;
 
@@ -46,7 +55,7 @@ sub wraphash {
 
     @levels = ( qw(QBXML QBXMLMsgsRq), @levels );
 
-    Data::Diver::DiveVal( \%hash, @levels ) ) = $data;
+    Data::Diver::DiveVal( \%hash, @levels ) = $data;
 
     \%hash;
 }

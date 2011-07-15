@@ -1,10 +1,10 @@
 package XML::Quickbooks;
+
 # ABSTRACT: XML::Toolkit classes for manipulating Quickbooks
 
 use Moose;
 with 'XML::Quickbooks::Util';
 with 'XML::Quickbooks::Log';
-
 
 use Carp::Always;
 use XML::Element;
@@ -14,163 +14,162 @@ use XML::TreeBuilder;
 use XML::Quickbooks::RequestProcessor;
 
 has 'request' => (
-  is => 'rw',
-  trigger => \&_warnrequest
- );
+    is      => 'rw',
+    trigger => \&_warnrequest
+);
 
 has 'response' => (
-  is => 'rw',
-  trigger => \&_warnresponse
- );
+    is      => 'rw',
+    trigger => \&_warnresponse
+);
 
-has 'tree' => (is => 'rw');
+has 'tree' => ( is => 'rw' );
 
-has 'warnrequest'  => (is => 'rw', default => 0);
-has 'warnresponse' => (is => 'rw', default => 0);
-
+has 'warnrequest'  => ( is => 'rw', default => 0 );
+has 'warnresponse' => ( is => 'rw', default => 0 );
 
 sub _warnrequest {
-  my ($self)=@_;
-  warn "WR: " .$self->warnrequest;
-  $self->warnrequest and $self->log->logcarp($self->request);
+    my ($self) = @_;
+    warn "WR: " . $self->warnrequest;
+    $self->warnrequest and $self->log->logcarp( $self->request );
 }
 
 sub _warnresponse {
-  my ($self)=@_;
-  $self->warnresponse and $self->log->logcarp($self->response);
+    my ($self) = @_;
+    $self->warnresponse and $self->log->logcarp( $self->response );
 }
 
 use Carp;
 
 sub dumper {
-  my $self=shift;
-  use Data::Dumper;
-  $self->logcarp(Dumper(@_));
+    my $self = shift;
+    use Data::Dumper;
+    $self->log->logcarp( Dumper(@_) );
 }
 
 sub pretty_print {
-  my($self,$xml)=@_;
+    my ( $self, $xml ) = @_;
 
-
-
- my $twig=XML::Twig->new(   
-    pretty_print => 'indented',                # output will be nicely formatted
-                          );
-  $twig->parse($xml);
-  $twig->sprint;
+    my $twig = XML::Twig->new(
+        pretty_print => 'indented',    # output will be nicely formatted
+    );
+    $twig->parse($xml);
+    $twig->sprint;
 }
 
 sub warnall {
-  qw(warnrequest => 1 warnresponse => 1);
+    qw(warnrequest => 1 warnresponse => 1);
 }
 
 sub exists {
-  my($self,$opt)=@_;
+    my ( $self, $opt ) = @_;
 
-  $self->submit($opt);
-  $self->responseok;
+    $self->submit($opt);
+    $self->responseok;
 }
 
 sub responsetree {
-  my($self)=@_;
+    my ($self) = @_;
 
+    if ( length $self->response < 5 ) {
+        Carp::confess('response is too small');
+    }
 
-  if (length $self->response < 5) {
-    Carp::confess('response is too small');
-  }
+    my $tree =
+      XML::TreeBuilder->new( { 'NoExpand' => 0, 'ErrorContext' => 0 } );
+    $tree->parse( $self->response );
 
-
-  my $tree = XML::TreeBuilder->new({ 'NoExpand' => 0, 'ErrorContext' => 0 });
-  $tree->parse($self->response);
-
-  $self->tree($tree);
-  $tree;
+    $self->tree($tree);
+    $tree;
 }
 
 sub responselistid {
-  my($self)=@_;
+    my ($self) = @_;
 
-  my $t = $self->responsetree;
-  my $elem = $t->look_down('_tag' => 'ListID');
-  my ($listid) = $elem->content_list;
-  $listid;
+    my $t        = $self->responsetree;
+    my $elem     = $t->look_down( '_tag' => 'ListID' );
+    my ($listid) = $elem->content_list;
+    $listid;
 
 }
 
 sub responsetxnid {
-  my($self)=@_;
+    my ($self) = @_;
 
-  my $t = $self->responsetree;
-  my $elem = $t->look_down('_tag' => 'TxnID');
-  my ($txnid) = $elem->content_list;
-  $txnid;
+    my $t       = $self->responsetree;
+    my $elem    = $t->look_down( '_tag' => 'TxnID' );
+    my ($txnid) = $elem->content_list;
+    $txnid;
 
 }
 
 sub responsecode {
-  my($self)=@_;
+    my ($self) = @_;
 
-  my $s = 'statusCode';
-  #warn $self->responsetree;
-  my $elem = $self->responsetree->look_down($s => qr/.+/);
-  #warn $elem->as_HTML;
-  my $status = $elem->attr($s);
-  $self->log->logwarn("status:$status:");
-  int($status);
+    my $s = 'statusCode';
+
+    #warn $self->responsetree;
+    my $elem = $self->responsetree->look_down( $s => qr/.+/ );
+
+    #warn $elem->as_HTML;
+    my $status = $elem->attr($s);
+    $self->log->logwarn("status:$status:");
+    int($status);
 }
 
-
 sub responseok {
-  my($self)=@_;
+    my ($self) = @_;
 
-  not $self->responsecode;
+    not $self->responsecode;
 }
 
 sub responsemsg {
-  my($self)=@_;
+    my ($self) = @_;
 
-  my $s = 'statusMessage';
-  #warn $self->responsetree;
-  my $elem = $self->responsetree->look_down($s => qr/.+/);
-  #warn $elem->as_HTML;
-  my $status = $elem->attr($s);
+    my $s = 'statusMessage';
+
+    #warn $self->responsetree;
+    my $elem = $self->responsetree->look_down( $s => qr/.+/ );
+
+    #warn $elem->as_HTML;
+    my $status = $elem->attr($s);
 }
 
 sub evaluate {
-  my($self, $r)=@_;
+    my ( $self, $r ) = @_;
 
-  my $response = $r // $self->response;
+    my $response = $r // $self->response;
 
-  $self->response($response);
-  $self->responseok;
+    $self->response($response);
+    $self->responseok;
 }
 
 sub process {
-  my $self = shift;
+    my $self = shift;
 
-  #warn 'forming XML';
-  $self->as_xml(@_);
-  #warn 'forming XML DONE';
+    #warn 'forming XML';
+    $self->as_xml(@_);
 
+    #warn 'forming XML DONE';
 
-  #warn "How does self look: "; $self->dumper($self);
-  my $p = XML::Quickbooks::RequestProcessor->new;
-  my ($response) = $p->process($self->request);
+    #warn "How does self look: "; $self->dumper($self);
+    my $p = XML::Quickbooks::RequestProcessor->new;
+    my ($response) = $p->process( $self->request );
 
-  #warn 'Lets see self again'; $self->dumper($self);
+    #warn 'Lets see self again'; $self->dumper($self);
 
-  $self->response($response);
+    $self->response($response);
 
-  #warn 'Lets see self one more time'; $self->dumper($self);
+    #warn 'Lets see self one more time'; $self->dumper($self);
 
-  $self->responsecode;
+    $self->responsecode;
 }
 
 sub submit { goto &process; }
 
 sub DEMOLISH {
-  my($self)=@_;
-  $self->tree->delete if $self->tree;
+    my ($self) = @_;
+    $self->tree->delete if $self->tree;
 }
 
 =head1 SYNOPSIS
@@ -206,4 +205,5 @@ This method returns a reason.
 * L<Early sample code|http://www.devx.com/xml/Article/30482/1954>
 
 =cut
+
 1;
