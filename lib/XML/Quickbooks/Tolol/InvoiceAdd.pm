@@ -34,7 +34,6 @@ sub DIVE {
 sub maybe_morph {
     my ( $self, $data ) = @_;
     if ( $self->can('morph') ) {
-        warn "MORPHING";
         $self->morph($data);
     }
 }

@@ -3,14 +3,15 @@ package XML::Quickbooks;
 
 use Moose;
 with 'XML::Quickbooks::Util';
+use XML::Quickbooks::Log;
+with 'MooseX::Log::Log4perl';
 
 use Carp::Always;
 use XML::Element;
+use XML::Twig;
 use XML::TreeBuilder;
 
 use XML::Quickbooks::RequestProcessor;
-
-
 
 has 'request' => (
   is => 'rw',
@@ -30,12 +31,13 @@ has 'warnresponse' => (is => 'rw', default => 0);
 
 sub _warnrequest {
   my ($self)=@_;
-  $self->warnrequest and Carp::cluck($self->request);
+  warn "WR: " .$self->warnrequest;
+  $self->warnrequest and $self->log->logcarp($self->request);
 }
 
 sub _warnresponse {
   my ($self)=@_;
-  $self->warnresponse and Carp::cluck($self->response);
+  $self->warnresponse and $self->log->logcarp($self->response);
 }
 
 use Carp;
@@ -43,13 +45,13 @@ use Carp;
 sub dumper {
   my $self=shift;
   use Data::Dumper;
-  carp Dumper(@_);
+  $self->logcarp(Dumper(@_));
 }
 
 sub pretty_print {
   my($self,$xml)=@_;
 
-  use XML::Twig;
+
 
  my $twig=XML::Twig->new(   
     pretty_print => 'indented',                # output will be nicely formatted
@@ -113,7 +115,7 @@ sub responsecode {
   my $elem = $self->responsetree->look_down($s => qr/.+/);
   #warn $elem->as_HTML;
   my $status = $elem->attr($s);
-  warn "status:$status:";
+  $self->log->logwarn("status:$status:");
   int($status);
 }
 

@@ -5,13 +5,13 @@ use warnings;
 
 require Exporter;
 our @ISA = qw(Exporter);
-our @EXPORT = qw(datetimestamp timestamp);
+our @EXPORT = qw(datetimestamp timestamp maxwarn);
 
 use Data::Random;
 
-
-
 use DateTime;
+
+sub maxwarn { qw(warnrequest 1 warnresponse 1) }
 
 sub datetimestamp {
 

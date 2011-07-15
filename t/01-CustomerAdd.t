@@ -3,11 +3,11 @@
 use t::lib::T;
 use t::lib::U;
 
-use XML::Quickbooks::Tolol::CustomerAdd;
+use XML::Quickbooks::Writer::CustomerAdd;
 
-my $tmpnam = "Test " . datetimestamp();
-my $data = {Name => $tmpnam};
-my $CustomerAdd = XML::Quickbooks::Tolol::CustomerAdd->new(data => $data);
+my $tmpnam = "Test " . timestamp;
+my $data =  {Name => $tmpnam};
+my $CustomerAdd = XML::Quickbooks::Writer::CustomerAdd->new(data => $data, maxwarn());
 
 
 $CustomerAdd->as_xml();
