@@ -34,6 +34,8 @@ sub makepostingacct {
   my($self)=@_;
   my %localarg = (Name => $posting_acct, AccountType => 'Income');
   use XML::Quickbooks::Writer::AccountAdd;
-  XML::Quickbooks::Writer::AccountAdd->new(data => \%localarg)->submit;
+  my $o = XML::Quickbooks::Writer::AccountAdd->new(maxwarn(), data => \%localarg);
+  warn Data::Dumper::Dumper($o);
+  $o->submit;
   $posting_acct;
 }

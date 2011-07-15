@@ -1,5 +1,5 @@
 package XML::Quickbooks::Log;
-use Moose;
+use Moose::Role;
 use Log::Log4perl;
 
 BEGIN {

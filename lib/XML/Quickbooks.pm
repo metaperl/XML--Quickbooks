@@ -3,8 +3,8 @@ package XML::Quickbooks;
 
 use Moose;
 with 'XML::Quickbooks::Util';
-use XML::Quickbooks::Log;
-with 'MooseX::Log::Log4perl';
+with 'XML::Quickbooks::Log';
+
 
 use Carp::Always;
 use XML::Element;
