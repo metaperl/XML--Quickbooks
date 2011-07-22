@@ -44,13 +44,13 @@ sub wrapping {
     }
 
     my %wrapping = (
-        AccountAdd      => [qw(AccountAddRq AccountAdd)],
-        CustomerAdd     => [qw(CustomerAddRq CustomerAddRq)],
-        EmployeeAdd     => [qw(EmployeeAddRq EmployeeAdd)],
-        InvoiceAdd      => [qw(InvoiceAddRq InvoiceAdd)],
-        ItemDiscountAdd => [qw(ItemDiscountAddRq ItemDiscountAdd)],
-        ItemInventory   => [qw(ItemInventoryRq ItemInventory)],
-        VendorAdd       => [qw(VendorAddRq VendorAdd)]
+        AccountAdd       => [qw(AccountAddRq AccountAdd)],
+        CustomerAdd      => [qw(CustomerAddRq CustomerAdd)],
+        EmployeeAdd      => [qw(EmployeeAddRq EmployeeAdd)],
+        InvoiceAdd       => [qw(InvoiceAddRq InvoiceAdd)],
+        ItemDiscountAdd  => [qw(ItemDiscountAddRq ItemDiscountAdd)],
+        ItemInventoryAdd => [qw(ItemInventoryAddRq ItemInventoryAdd)],
+        VendorAdd        => [qw(VendorAddRq VendorAdd)]
     );
 
     my $wrapping = $wrapping{$class} or die "No wrapping found for $class";

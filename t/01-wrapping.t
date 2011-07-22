@@ -5,16 +5,18 @@ use XML::Quickbooks;
 
 my $self = XML::Quickbooks->new;
 
-my @class = qw(AccountAdd CustomerAdd EmployeeAdd InvoiceAdd ItemDiscountAdd 
+my @class = qw(AccountAdd CustomerAdd EmployeeAdd InvoiceAdd ItemDiscountAdd
 	       ItemInventoryAdd VendorAdd);
 
 for my $class (@class) {
   my $object = $self->wnew($class);
   warn ref $object;
-  $self->dumper(ref $object, $object->wrapping);
+  my @exp =($class . 'Rq' , $class);
+  $self->dumper(ref $object, $object->wrapping, \@exp);
+  is_deeply( $object->wrapping, \@exp, 'compare hash wrapping' );
 }
 
-is_deeply( 1, 2, 'compare hash wrapping' );
 
-warn Data::Dumper::Dumper( $wrapped, $exp );
+
+
 done_testing();

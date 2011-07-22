@@ -17,7 +17,7 @@ has 'data' => (
 has 'writer' => ( is => 'rw', isa => 'XML::Writer' );
 has 'string' => ( is => 'rw', isa => 'XML::Writer::String' );
 
-sub tagQBXML {
+sub _tag_QBXML {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -27,11 +27,11 @@ sub tagQBXML {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXML => @$attr );
 
-    $self->tagQBXMLMsgsRq;
+    $self->_tag_QBXMLMsgsRq;
     $self->writer->endTag;
 }
 
-sub tagQBXMLMsgsRq {
+sub _tag_QBXMLMsgsRq {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -41,11 +41,11 @@ sub tagQBXMLMsgsRq {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXMLMsgsRq => @$attr );
 
-    $self->tagEmployeeAddRq;
+    $self->_tag_EmployeeAddRq;
     $self->writer->endTag;
 }
 
-sub tagEmployeeAddRq {
+sub _tag_EmployeeAddRq {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -55,12 +55,12 @@ sub tagEmployeeAddRq {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( EmployeeAddRq => @$attr );
 
-    $self->tagEmployeeAdd;
-    $self->tagIncludeRetElement;
+    $self->_tag_EmployeeAdd;
+    $self->_tag_IncludeRetElement;
     $self->writer->endTag;
 }
 
-sub tagEmployeeAdd {
+sub _tag_EmployeeAdd {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -70,35 +70,35 @@ sub tagEmployeeAdd {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( EmployeeAdd => @$attr );
 
-    $self->tagIsActive;
-    $self->tagSalutation;
-    $self->tagFirstName;
-    $self->tagMiddleName;
-    $self->tagLastName;
-    $self->tagEmployeeAddress;
-    $self->tagPrintAs;
-    $self->tagPhone;
-    $self->tagMobile;
-    $self->tagPager;
-    $self->tagPagerPIN;
-    $self->tagAltPhone;
-    $self->tagFax;
-    $self->tagSSN;
-    $self->tagEmail;
-    $self->tagEmployeeType;
-    $self->tagGender;
-    $self->tagHiredDate;
-    $self->tagReleasedDate;
-    $self->tagBirthDate;
-    $self->tagAccountNumber;
-    $self->tagNotes;
-    $self->tagBillingRateRef;
-    $self->tagEmployeePayrollInfo;
-    $self->tagExternalGUID;
+    $self->_tag_IsActive;
+    $self->_tag_Salutation;
+    $self->_tag_FirstName;
+    $self->_tag_MiddleName;
+    $self->_tag_LastName;
+    $self->_tag_EmployeeAddress;
+    $self->_tag_PrintAs;
+    $self->_tag_Phone;
+    $self->_tag_Mobile;
+    $self->_tag_Pager;
+    $self->_tag_PagerPIN;
+    $self->_tag_AltPhone;
+    $self->_tag_Fax;
+    $self->_tag_SSN;
+    $self->_tag_Email;
+    $self->_tag_EmployeeType;
+    $self->_tag_Gender;
+    $self->_tag_HiredDate;
+    $self->_tag_ReleasedDate;
+    $self->_tag_BirthDate;
+    $self->_tag_AccountNumber;
+    $self->_tag_Notes;
+    $self->_tag_BillingRateRef;
+    $self->_tag_EmployeePayrollInfo;
+    $self->_tag_ExternalGUID;
     $self->writer->endTag;
 }
 
-sub tagIsActive {
+sub _tag_IsActive {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -112,7 +112,7 @@ sub tagIsActive {
     $self->writer->endTag;
 }
 
-sub tagSalutation {
+sub _tag_Salutation {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -126,7 +126,7 @@ sub tagSalutation {
     $self->writer->endTag;
 }
 
-sub tagFirstName {
+sub _tag_FirstName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -140,7 +140,7 @@ sub tagFirstName {
     $self->writer->endTag;
 }
 
-sub tagMiddleName {
+sub _tag_MiddleName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -154,7 +154,7 @@ sub tagMiddleName {
     $self->writer->endTag;
 }
 
-sub tagLastName {
+sub _tag_LastName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -168,7 +168,7 @@ sub tagLastName {
     $self->writer->endTag;
 }
 
-sub tagEmployeeAddress {
+sub _tag_EmployeeAddress {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -178,15 +178,15 @@ sub tagEmployeeAddress {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( EmployeeAddress => @$attr );
 
-    $self->tagAddr1;
-    $self->tagAddr2;
-    $self->tagCity;
-    $self->tagState;
-    $self->tagPostalCode;
+    $self->_tag_EmployeeAddress_Addr1;
+    $self->_tag_EmployeeAddress_Addr2;
+    $self->_tag_EmployeeAddress_City;
+    $self->_tag_EmployeeAddress_State;
+    $self->_tag_EmployeeAddress_PostalCode;
     $self->writer->endTag;
 }
 
-sub tagAddr1 {
+sub _tag_EmployeeAddress_Addr1 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -200,7 +200,7 @@ sub tagAddr1 {
     $self->writer->endTag;
 }
 
-sub tagAddr2 {
+sub _tag_EmployeeAddress_Addr2 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -214,7 +214,7 @@ sub tagAddr2 {
     $self->writer->endTag;
 }
 
-sub tagCity {
+sub _tag_EmployeeAddress_City {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -228,7 +228,7 @@ sub tagCity {
     $self->writer->endTag;
 }
 
-sub tagState {
+sub _tag_EmployeeAddress_State {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -242,7 +242,7 @@ sub tagState {
     $self->writer->endTag;
 }
 
-sub tagPostalCode {
+sub _tag_EmployeeAddress_PostalCode {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -256,7 +256,7 @@ sub tagPostalCode {
     $self->writer->endTag;
 }
 
-sub tagPrintAs {
+sub _tag_PrintAs {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -270,7 +270,7 @@ sub tagPrintAs {
     $self->writer->endTag;
 }
 
-sub tagPhone {
+sub _tag_Phone {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -284,7 +284,7 @@ sub tagPhone {
     $self->writer->endTag;
 }
 
-sub tagMobile {
+sub _tag_Mobile {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -298,7 +298,7 @@ sub tagMobile {
     $self->writer->endTag;
 }
 
-sub tagPager {
+sub _tag_Pager {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -312,7 +312,7 @@ sub tagPager {
     $self->writer->endTag;
 }
 
-sub tagPagerPIN {
+sub _tag_PagerPIN {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -326,7 +326,7 @@ sub tagPagerPIN {
     $self->writer->endTag;
 }
 
-sub tagAltPhone {
+sub _tag_AltPhone {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -340,7 +340,7 @@ sub tagAltPhone {
     $self->writer->endTag;
 }
 
-sub tagFax {
+sub _tag_Fax {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -354,7 +354,7 @@ sub tagFax {
     $self->writer->endTag;
 }
 
-sub tagSSN {
+sub _tag_SSN {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -368,7 +368,7 @@ sub tagSSN {
     $self->writer->endTag;
 }
 
-sub tagEmail {
+sub _tag_Email {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -382,7 +382,7 @@ sub tagEmail {
     $self->writer->endTag;
 }
 
-sub tagEmployeeType {
+sub _tag_EmployeeType {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -396,7 +396,7 @@ sub tagEmployeeType {
     $self->writer->endTag;
 }
 
-sub tagGender {
+sub _tag_Gender {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -410,7 +410,7 @@ sub tagGender {
     $self->writer->endTag;
 }
 
-sub tagHiredDate {
+sub _tag_HiredDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -424,7 +424,7 @@ sub tagHiredDate {
     $self->writer->endTag;
 }
 
-sub tagReleasedDate {
+sub _tag_ReleasedDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -438,7 +438,7 @@ sub tagReleasedDate {
     $self->writer->endTag;
 }
 
-sub tagBirthDate {
+sub _tag_BirthDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -452,7 +452,7 @@ sub tagBirthDate {
     $self->writer->endTag;
 }
 
-sub tagAccountNumber {
+sub _tag_AccountNumber {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -466,7 +466,7 @@ sub tagAccountNumber {
     $self->writer->endTag;
 }
 
-sub tagNotes {
+sub _tag_Notes {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -480,7 +480,7 @@ sub tagNotes {
     $self->writer->endTag;
 }
 
-sub tagBillingRateRef {
+sub _tag_BillingRateRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -490,12 +490,12 @@ sub tagBillingRateRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( BillingRateRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_BillingRateRef_ListID;
+    $self->_tag_BillingRateRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_BillingRateRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -509,7 +509,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_BillingRateRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -523,7 +523,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagEmployeePayrollInfo {
+sub _tag_EmployeePayrollInfo {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -533,18 +533,18 @@ sub tagEmployeePayrollInfo {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( EmployeePayrollInfo => @$attr );
 
-    $self->tagPayPeriod;
-    $self->tagClassRef;
-    $self->tagClearEarnings;
-    $self->tagEarnings;
-    $self->tagIsUsingTimeDataToCreatePaychecks;
-    $self->tagUseTimeDataToCreatePaychecks;
-    $self->tagSickHours;
-    $self->tagVacationHours;
+    $self->_tag_EmployeePayrollInfo_PayPeriod;
+    $self->_tag_EmployeePayrollInfo_ClassRef;
+    $self->_tag_EmployeePayrollInfo_ClearEarnings;
+    $self->_tag_EmployeePayrollInfo_Earnings;
+    $self->_tag_EmployeePayrollInfo_IsUsingTimeDataToCreatePaychecks;
+    $self->_tag_EmployeePayrollInfo_UseTimeDataToCreatePaychecks;
+    $self->_tag_EmployeePayrollInfo_SickHours;
+    $self->_tag_EmployeePayrollInfo_VacationHours;
     $self->writer->endTag;
 }
 
-sub tagPayPeriod {
+sub _tag_EmployeePayrollInfo_PayPeriod {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -558,7 +558,7 @@ sub tagPayPeriod {
     $self->writer->endTag;
 }
 
-sub tagClassRef {
+sub _tag_EmployeePayrollInfo_ClassRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -568,12 +568,12 @@ sub tagClassRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ClassRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_EmployeePayrollInfo_ClassRef_ListID;
+    $self->_tag_EmployeePayrollInfo_ClassRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_EmployeePayrollInfo_ClassRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -588,7 +588,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_EmployeePayrollInfo_ClassRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -603,7 +603,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagClearEarnings {
+sub _tag_EmployeePayrollInfo_ClearEarnings {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -618,7 +618,7 @@ sub tagClearEarnings {
     $self->writer->endTag;
 }
 
-sub tagEarnings {
+sub _tag_EmployeePayrollInfo_Earnings {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -628,13 +628,13 @@ sub tagEarnings {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( Earnings => @$attr );
 
-    $self->tagPayrollItemWageRef;
-    $self->tagRate;
-    $self->tagRatePercent;
+    $self->_tag_EmployeePayrollInfo_Earnings_PayrollItemWageRef;
+    $self->_tag_EmployeePayrollInfo_Earnings_Rate;
+    $self->_tag_EmployeePayrollInfo_Earnings_RatePercent;
     $self->writer->endTag;
 }
 
-sub tagPayrollItemWageRef {
+sub _tag_EmployeePayrollInfo_Earnings_PayrollItemWageRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -645,12 +645,12 @@ sub tagPayrollItemWageRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( PayrollItemWageRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_EmployeePayrollInfo_Earnings_PayrollItemWageRef_ListID;
+    $self->_tag_EmployeePayrollInfo_Earnings_PayrollItemWageRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_EmployeePayrollInfo_Earnings_PayrollItemWageRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -665,7 +665,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_EmployeePayrollInfo_Earnings_PayrollItemWageRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -680,7 +680,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagRate {
+sub _tag_EmployeePayrollInfo_Earnings_Rate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -695,7 +695,7 @@ sub tagRate {
     $self->writer->endTag;
 }
 
-sub tagRatePercent {
+sub _tag_EmployeePayrollInfo_Earnings_RatePercent {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -710,7 +710,7 @@ sub tagRatePercent {
     $self->writer->endTag;
 }
 
-sub tagIsUsingTimeDataToCreatePaychecks {
+sub _tag_EmployeePayrollInfo_IsUsingTimeDataToCreatePaychecks {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -725,7 +725,7 @@ sub tagIsUsingTimeDataToCreatePaychecks {
     $self->writer->endTag;
 }
 
-sub tagUseTimeDataToCreatePaychecks {
+sub _tag_EmployeePayrollInfo_UseTimeDataToCreatePaychecks {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -740,7 +740,7 @@ sub tagUseTimeDataToCreatePaychecks {
     $self->writer->endTag;
 }
 
-sub tagSickHours {
+sub _tag_EmployeePayrollInfo_SickHours {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -750,17 +750,17 @@ sub tagSickHours {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( SickHours => @$attr );
 
-    $self->tagHoursAvailable;
-    $self->tagAccrualPeriod;
-    $self->tagHoursAccrued;
-    $self->tagMaximumHours;
-    $self->tagIsResettingHoursEachNewYear;
-    $self->tagHoursUsed;
-    $self->tagAccrualStartDate;
+    $self->_tag_EmployeePayrollInfo_SickHours_HoursAvailable;
+    $self->_tag_EmployeePayrollInfo_SickHours_AccrualPeriod;
+    $self->_tag_EmployeePayrollInfo_SickHours_HoursAccrued;
+    $self->_tag_EmployeePayrollInfo_SickHours_MaximumHours;
+    $self->_tag_EmployeePayrollInfo_SickHours_IsResettingHoursEachNewYear;
+    $self->_tag_EmployeePayrollInfo_SickHours_HoursUsed;
+    $self->_tag_EmployeePayrollInfo_SickHours_AccrualStartDate;
     $self->writer->endTag;
 }
 
-sub tagHoursAvailable {
+sub _tag_EmployeePayrollInfo_SickHours_HoursAvailable {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -775,7 +775,7 @@ sub tagHoursAvailable {
     $self->writer->endTag;
 }
 
-sub tagAccrualPeriod {
+sub _tag_EmployeePayrollInfo_SickHours_AccrualPeriod {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -790,7 +790,7 @@ sub tagAccrualPeriod {
     $self->writer->endTag;
 }
 
-sub tagHoursAccrued {
+sub _tag_EmployeePayrollInfo_SickHours_HoursAccrued {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -805,7 +805,7 @@ sub tagHoursAccrued {
     $self->writer->endTag;
 }
 
-sub tagMaximumHours {
+sub _tag_EmployeePayrollInfo_SickHours_MaximumHours {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -820,7 +820,7 @@ sub tagMaximumHours {
     $self->writer->endTag;
 }
 
-sub tagIsResettingHoursEachNewYear {
+sub _tag_EmployeePayrollInfo_SickHours_IsResettingHoursEachNewYear {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -835,7 +835,7 @@ sub tagIsResettingHoursEachNewYear {
     $self->writer->endTag;
 }
 
-sub tagHoursUsed {
+sub _tag_EmployeePayrollInfo_SickHours_HoursUsed {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -850,7 +850,7 @@ sub tagHoursUsed {
     $self->writer->endTag;
 }
 
-sub tagAccrualStartDate {
+sub _tag_EmployeePayrollInfo_SickHours_AccrualStartDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -865,7 +865,7 @@ sub tagAccrualStartDate {
     $self->writer->endTag;
 }
 
-sub tagVacationHours {
+sub _tag_EmployeePayrollInfo_VacationHours {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -876,17 +876,17 @@ sub tagVacationHours {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( VacationHours => @$attr );
 
-    $self->tagHoursAvailable;
-    $self->tagAccrualPeriod;
-    $self->tagHoursAccrued;
-    $self->tagMaximumHours;
-    $self->tagIsResettingHoursEachNewYear;
-    $self->tagHoursUsed;
-    $self->tagAccrualStartDate;
+    $self->_tag_EmployeePayrollInfo_VacationHours_HoursAvailable;
+    $self->_tag_EmployeePayrollInfo_VacationHours_AccrualPeriod;
+    $self->_tag_EmployeePayrollInfo_VacationHours_HoursAccrued;
+    $self->_tag_EmployeePayrollInfo_VacationHours_MaximumHours;
+    $self->_tag_EmployeePayrollInfo_VacationHours_IsResettingHoursEachNewYear;
+    $self->_tag_EmployeePayrollInfo_VacationHours_HoursUsed;
+    $self->_tag_EmployeePayrollInfo_VacationHours_AccrualStartDate;
     $self->writer->endTag;
 }
 
-sub tagHoursAvailable {
+sub _tag_EmployeePayrollInfo_VacationHours_HoursAvailable {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -901,7 +901,7 @@ sub tagHoursAvailable {
     $self->writer->endTag;
 }
 
-sub tagAccrualPeriod {
+sub _tag_EmployeePayrollInfo_VacationHours_AccrualPeriod {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -916,7 +916,7 @@ sub tagAccrualPeriod {
     $self->writer->endTag;
 }
 
-sub tagHoursAccrued {
+sub _tag_EmployeePayrollInfo_VacationHours_HoursAccrued {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -931,7 +931,7 @@ sub tagHoursAccrued {
     $self->writer->endTag;
 }
 
-sub tagMaximumHours {
+sub _tag_EmployeePayrollInfo_VacationHours_MaximumHours {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -946,7 +946,7 @@ sub tagMaximumHours {
     $self->writer->endTag;
 }
 
-sub tagIsResettingHoursEachNewYear {
+sub _tag_EmployeePayrollInfo_VacationHours_IsResettingHoursEachNewYear {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -961,7 +961,7 @@ sub tagIsResettingHoursEachNewYear {
     $self->writer->endTag;
 }
 
-sub tagHoursUsed {
+sub _tag_EmployeePayrollInfo_VacationHours_HoursUsed {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -976,7 +976,7 @@ sub tagHoursUsed {
     $self->writer->endTag;
 }
 
-sub tagAccrualStartDate {
+sub _tag_EmployeePayrollInfo_VacationHours_AccrualStartDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -991,7 +991,7 @@ sub tagAccrualStartDate {
     $self->writer->endTag;
 }
 
-sub tagExternalGUID {
+sub _tag_ExternalGUID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1005,7 +1005,7 @@ sub tagExternalGUID {
     $self->writer->endTag;
 }
 
-sub tagIncludeRetElement {
+sub _tag_IncludeRetElement {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1021,7 +1021,7 @@ sub tagIncludeRetElement {
 
 sub xml {
     my ($self) = @_;
-    my $method = 'tagQBXML';
+    my $method = '_tag_QBXML';
     $self->$method;
     $self->writer->end;
     $self;

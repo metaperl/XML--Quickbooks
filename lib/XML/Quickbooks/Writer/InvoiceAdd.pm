@@ -17,7 +17,7 @@ has 'data' => (
 has 'writer' => ( is => 'rw', isa => 'XML::Writer' );
 has 'string' => ( is => 'rw', isa => 'XML::Writer::String' );
 
-sub tagQBXML {
+sub _tag_QBXML {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -27,11 +27,11 @@ sub tagQBXML {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXML => @$attr );
 
-    $self->tagQBXMLMsgsRq;
+    $self->_tag_QBXMLMsgsRq;
     $self->writer->endTag;
 }
 
-sub tagQBXMLMsgsRq {
+sub _tag_QBXMLMsgsRq {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -41,11 +41,11 @@ sub tagQBXMLMsgsRq {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXMLMsgsRq => @$attr );
 
-    $self->tagInvoiceAddRq;
+    $self->_tag_InvoiceAddRq;
     $self->writer->endTag;
 }
 
-sub tagInvoiceAddRq {
+sub _tag_InvoiceAddRq {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -55,12 +55,12 @@ sub tagInvoiceAddRq {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( InvoiceAddRq => @$attr );
 
-    $self->tagInvoiceAdd;
-    $self->tagIncludeRetElement;
+    $self->_tag_InvoiceAdd;
+    $self->_tag_IncludeRetElement;
     $self->writer->endTag;
 }
 
-sub tagInvoiceAdd {
+sub _tag_InvoiceAdd {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -70,40 +70,40 @@ sub tagInvoiceAdd {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( InvoiceAdd => @$attr );
 
-    $self->tagCustomerRef;
-    $self->tagClassRef;
-    $self->tagARAccountRef;
-    $self->tagTemplateRef;
-    $self->tagTxnDate;
-    $self->tagRefNumber;
-    $self->tagBillAddress;
-    $self->tagShipAddress;
-    $self->tagIsPending;
-    $self->tagIsFinanceCharge;
-    $self->tagPONumber;
-    $self->tagTermsRef;
-    $self->tagDueDate;
-    $self->tagSalesRepRef;
-    $self->tagFOB;
-    $self->tagShipDate;
-    $self->tagShipMethodRef;
-    $self->tagItemSalesTaxRef;
-    $self->tagMemo;
-    $self->tagCustomerMsgRef;
-    $self->tagIsToBePrinted;
-    $self->tagIsToBeEmailed;
-    $self->tagCustomerSalesTaxCodeRef;
-    $self->tagOther;
-    $self->tagExchangeRate;
-    $self->tagExternalGUID;
-    $self->tagLinkToTxnID;
-    $self->tagSetCredit;
-    $self->tagInvoiceLineAdd;
-    $self->tagInvoiceLineGroupAdd;
+    $self->_tag_CustomerRef;
+    $self->_tag_ClassRef;
+    $self->_tag_ARAccountRef;
+    $self->_tag_TemplateRef;
+    $self->_tag_TxnDate;
+    $self->_tag_RefNumber;
+    $self->_tag_BillAddress;
+    $self->_tag_ShipAddress;
+    $self->_tag_IsPending;
+    $self->_tag_IsFinanceCharge;
+    $self->_tag_PONumber;
+    $self->_tag_TermsRef;
+    $self->_tag_DueDate;
+    $self->_tag_SalesRepRef;
+    $self->_tag_FOB;
+    $self->_tag_ShipDate;
+    $self->_tag_ShipMethodRef;
+    $self->_tag_ItemSalesTaxRef;
+    $self->_tag_Memo;
+    $self->_tag_CustomerMsgRef;
+    $self->_tag_IsToBePrinted;
+    $self->_tag_IsToBeEmailed;
+    $self->_tag_CustomerSalesTaxCodeRef;
+    $self->_tag_Other;
+    $self->_tag_ExchangeRate;
+    $self->_tag_ExternalGUID;
+    $self->_tag_LinkToTxnID;
+    $self->_tag_SetCredit;
+    $self->_tag_InvoiceLineAdd;
+    $self->_tag_InvoiceLineGroupAdd;
     $self->writer->endTag;
 }
 
-sub tagCustomerRef {
+sub _tag_CustomerRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -113,12 +113,12 @@ sub tagCustomerRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( CustomerRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_CustomerRef_ListID;
+    $self->_tag_CustomerRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_CustomerRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -132,7 +132,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_CustomerRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -146,7 +146,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagClassRef {
+sub _tag_ClassRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -156,12 +156,12 @@ sub tagClassRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ClassRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_ClassRef_ListID;
+    $self->_tag_ClassRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_ClassRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -175,7 +175,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_ClassRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -189,7 +189,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagARAccountRef {
+sub _tag_ARAccountRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -199,12 +199,12 @@ sub tagARAccountRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ARAccountRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_ARAccountRef_ListID;
+    $self->_tag_ARAccountRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_ARAccountRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -218,7 +218,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_ARAccountRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -232,7 +232,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagTemplateRef {
+sub _tag_TemplateRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -242,12 +242,12 @@ sub tagTemplateRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( TemplateRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_TemplateRef_ListID;
+    $self->_tag_TemplateRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_TemplateRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -261,7 +261,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_TemplateRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -275,7 +275,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagTxnDate {
+sub _tag_TxnDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -289,7 +289,7 @@ sub tagTxnDate {
     $self->writer->endTag;
 }
 
-sub tagRefNumber {
+sub _tag_RefNumber {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -303,7 +303,7 @@ sub tagRefNumber {
     $self->writer->endTag;
 }
 
-sub tagBillAddress {
+sub _tag_BillAddress {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -313,20 +313,20 @@ sub tagBillAddress {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( BillAddress => @$attr );
 
-    $self->tagAddr1;
-    $self->tagAddr2;
-    $self->tagAddr3;
-    $self->tagAddr4;
-    $self->tagAddr5;
-    $self->tagCity;
-    $self->tagState;
-    $self->tagPostalCode;
-    $self->tagCountry;
-    $self->tagNote;
+    $self->_tag_BillAddress_Addr1;
+    $self->_tag_BillAddress_Addr2;
+    $self->_tag_BillAddress_Addr3;
+    $self->_tag_BillAddress_Addr4;
+    $self->_tag_BillAddress_Addr5;
+    $self->_tag_BillAddress_City;
+    $self->_tag_BillAddress_State;
+    $self->_tag_BillAddress_PostalCode;
+    $self->_tag_BillAddress_Country;
+    $self->_tag_BillAddress_Note;
     $self->writer->endTag;
 }
 
-sub tagAddr1 {
+sub _tag_BillAddress_Addr1 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -340,7 +340,7 @@ sub tagAddr1 {
     $self->writer->endTag;
 }
 
-sub tagAddr2 {
+sub _tag_BillAddress_Addr2 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -354,7 +354,7 @@ sub tagAddr2 {
     $self->writer->endTag;
 }
 
-sub tagAddr3 {
+sub _tag_BillAddress_Addr3 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -368,7 +368,7 @@ sub tagAddr3 {
     $self->writer->endTag;
 }
 
-sub tagAddr4 {
+sub _tag_BillAddress_Addr4 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -382,7 +382,7 @@ sub tagAddr4 {
     $self->writer->endTag;
 }
 
-sub tagAddr5 {
+sub _tag_BillAddress_Addr5 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -396,7 +396,7 @@ sub tagAddr5 {
     $self->writer->endTag;
 }
 
-sub tagCity {
+sub _tag_BillAddress_City {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -410,7 +410,7 @@ sub tagCity {
     $self->writer->endTag;
 }
 
-sub tagState {
+sub _tag_BillAddress_State {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -424,7 +424,7 @@ sub tagState {
     $self->writer->endTag;
 }
 
-sub tagPostalCode {
+sub _tag_BillAddress_PostalCode {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -438,7 +438,7 @@ sub tagPostalCode {
     $self->writer->endTag;
 }
 
-sub tagCountry {
+sub _tag_BillAddress_Country {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -452,7 +452,7 @@ sub tagCountry {
     $self->writer->endTag;
 }
 
-sub tagNote {
+sub _tag_BillAddress_Note {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -466,7 +466,7 @@ sub tagNote {
     $self->writer->endTag;
 }
 
-sub tagShipAddress {
+sub _tag_ShipAddress {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -476,20 +476,20 @@ sub tagShipAddress {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ShipAddress => @$attr );
 
-    $self->tagAddr1;
-    $self->tagAddr2;
-    $self->tagAddr3;
-    $self->tagAddr4;
-    $self->tagAddr5;
-    $self->tagCity;
-    $self->tagState;
-    $self->tagPostalCode;
-    $self->tagCountry;
-    $self->tagNote;
+    $self->_tag_ShipAddress_Addr1;
+    $self->_tag_ShipAddress_Addr2;
+    $self->_tag_ShipAddress_Addr3;
+    $self->_tag_ShipAddress_Addr4;
+    $self->_tag_ShipAddress_Addr5;
+    $self->_tag_ShipAddress_City;
+    $self->_tag_ShipAddress_State;
+    $self->_tag_ShipAddress_PostalCode;
+    $self->_tag_ShipAddress_Country;
+    $self->_tag_ShipAddress_Note;
     $self->writer->endTag;
 }
 
-sub tagAddr1 {
+sub _tag_ShipAddress_Addr1 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -503,7 +503,7 @@ sub tagAddr1 {
     $self->writer->endTag;
 }
 
-sub tagAddr2 {
+sub _tag_ShipAddress_Addr2 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -517,7 +517,7 @@ sub tagAddr2 {
     $self->writer->endTag;
 }
 
-sub tagAddr3 {
+sub _tag_ShipAddress_Addr3 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -531,7 +531,7 @@ sub tagAddr3 {
     $self->writer->endTag;
 }
 
-sub tagAddr4 {
+sub _tag_ShipAddress_Addr4 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -545,7 +545,7 @@ sub tagAddr4 {
     $self->writer->endTag;
 }
 
-sub tagAddr5 {
+sub _tag_ShipAddress_Addr5 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -559,7 +559,7 @@ sub tagAddr5 {
     $self->writer->endTag;
 }
 
-sub tagCity {
+sub _tag_ShipAddress_City {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -573,7 +573,7 @@ sub tagCity {
     $self->writer->endTag;
 }
 
-sub tagState {
+sub _tag_ShipAddress_State {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -587,7 +587,7 @@ sub tagState {
     $self->writer->endTag;
 }
 
-sub tagPostalCode {
+sub _tag_ShipAddress_PostalCode {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -601,7 +601,7 @@ sub tagPostalCode {
     $self->writer->endTag;
 }
 
-sub tagCountry {
+sub _tag_ShipAddress_Country {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -615,7 +615,7 @@ sub tagCountry {
     $self->writer->endTag;
 }
 
-sub tagNote {
+sub _tag_ShipAddress_Note {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -629,7 +629,7 @@ sub tagNote {
     $self->writer->endTag;
 }
 
-sub tagIsPending {
+sub _tag_IsPending {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -643,7 +643,7 @@ sub tagIsPending {
     $self->writer->endTag;
 }
 
-sub tagIsFinanceCharge {
+sub _tag_IsFinanceCharge {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -657,7 +657,7 @@ sub tagIsFinanceCharge {
     $self->writer->endTag;
 }
 
-sub tagPONumber {
+sub _tag_PONumber {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -671,7 +671,7 @@ sub tagPONumber {
     $self->writer->endTag;
 }
 
-sub tagTermsRef {
+sub _tag_TermsRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -681,12 +681,12 @@ sub tagTermsRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( TermsRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_TermsRef_ListID;
+    $self->_tag_TermsRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_TermsRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -700,7 +700,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_TermsRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -714,7 +714,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagDueDate {
+sub _tag_DueDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -728,7 +728,7 @@ sub tagDueDate {
     $self->writer->endTag;
 }
 
-sub tagSalesRepRef {
+sub _tag_SalesRepRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -738,12 +738,12 @@ sub tagSalesRepRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( SalesRepRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_SalesRepRef_ListID;
+    $self->_tag_SalesRepRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_SalesRepRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -757,7 +757,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_SalesRepRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -771,7 +771,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagFOB {
+sub _tag_FOB {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -785,7 +785,7 @@ sub tagFOB {
     $self->writer->endTag;
 }
 
-sub tagShipDate {
+sub _tag_ShipDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -799,7 +799,7 @@ sub tagShipDate {
     $self->writer->endTag;
 }
 
-sub tagShipMethodRef {
+sub _tag_ShipMethodRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -809,12 +809,12 @@ sub tagShipMethodRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ShipMethodRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_ShipMethodRef_ListID;
+    $self->_tag_ShipMethodRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_ShipMethodRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -828,7 +828,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_ShipMethodRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -842,7 +842,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagItemSalesTaxRef {
+sub _tag_ItemSalesTaxRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -852,12 +852,12 @@ sub tagItemSalesTaxRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ItemSalesTaxRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_ItemSalesTaxRef_ListID;
+    $self->_tag_ItemSalesTaxRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_ItemSalesTaxRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -871,7 +871,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_ItemSalesTaxRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -885,7 +885,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagMemo {
+sub _tag_Memo {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -899,7 +899,7 @@ sub tagMemo {
     $self->writer->endTag;
 }
 
-sub tagCustomerMsgRef {
+sub _tag_CustomerMsgRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -909,12 +909,12 @@ sub tagCustomerMsgRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( CustomerMsgRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_CustomerMsgRef_ListID;
+    $self->_tag_CustomerMsgRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_CustomerMsgRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -928,7 +928,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_CustomerMsgRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -942,7 +942,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagIsToBePrinted {
+sub _tag_IsToBePrinted {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -956,7 +956,7 @@ sub tagIsToBePrinted {
     $self->writer->endTag;
 }
 
-sub tagIsToBeEmailed {
+sub _tag_IsToBeEmailed {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -970,7 +970,7 @@ sub tagIsToBeEmailed {
     $self->writer->endTag;
 }
 
-sub tagCustomerSalesTaxCodeRef {
+sub _tag_CustomerSalesTaxCodeRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -980,12 +980,12 @@ sub tagCustomerSalesTaxCodeRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( CustomerSalesTaxCodeRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_CustomerSalesTaxCodeRef_ListID;
+    $self->_tag_CustomerSalesTaxCodeRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_CustomerSalesTaxCodeRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -999,7 +999,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_CustomerSalesTaxCodeRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1014,7 +1014,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagOther {
+sub _tag_Other {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1028,7 +1028,7 @@ sub tagOther {
     $self->writer->endTag;
 }
 
-sub tagExchangeRate {
+sub _tag_ExchangeRate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1042,7 +1042,7 @@ sub tagExchangeRate {
     $self->writer->endTag;
 }
 
-sub tagExternalGUID {
+sub _tag_ExternalGUID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1056,7 +1056,7 @@ sub tagExternalGUID {
     $self->writer->endTag;
 }
 
-sub tagLinkToTxnID {
+sub _tag_LinkToTxnID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1070,7 +1070,7 @@ sub tagLinkToTxnID {
     $self->writer->endTag;
 }
 
-sub tagSetCredit {
+sub _tag_SetCredit {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1080,13 +1080,13 @@ sub tagSetCredit {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( SetCredit => @$attr );
 
-    $self->tagCreditTxnID;
-    $self->tagAppliedAmount;
-    $self->tagOverride;
+    $self->_tag_SetCredit_CreditTxnID;
+    $self->_tag_SetCredit_AppliedAmount;
+    $self->_tag_SetCredit_Override;
     $self->writer->endTag;
 }
 
-sub tagCreditTxnID {
+sub _tag_SetCredit_CreditTxnID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1100,7 +1100,7 @@ sub tagCreditTxnID {
     $self->writer->endTag;
 }
 
-sub tagAppliedAmount {
+sub _tag_SetCredit_AppliedAmount {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1114,7 +1114,7 @@ sub tagAppliedAmount {
     $self->writer->endTag;
 }
 
-sub tagOverride {
+sub _tag_SetCredit_Override {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1128,7 +1128,7 @@ sub tagOverride {
     $self->writer->endTag;
 }
 
-sub tagInvoiceLineAdd {
+sub _tag_InvoiceLineAdd {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1138,27 +1138,27 @@ sub tagInvoiceLineAdd {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( InvoiceLineAdd => @$attr );
 
-    $self->tagItemRef;
-    $self->tagDesc;
-    $self->tagQuantity;
-    $self->tagUnitOfMeasure;
-    $self->tagRate;
-    $self->tagRatePercent;
-    $self->tagPriceLevelRef;
-    $self->tagClassRef;
-    $self->tagAmount;
-    $self->tagInventorySiteRef;
-    $self->tagServiceDate;
-    $self->tagSalesTaxCodeRef;
-    $self->tagOverrideItemAccountRef;
-    $self->tagOther1;
-    $self->tagOther2;
-    $self->tagLinkToTxn;
-    $self->tagDataExt;
+    $self->_tag_InvoiceLineAdd_ItemRef;
+    $self->_tag_InvoiceLineAdd_Desc;
+    $self->_tag_InvoiceLineAdd_Quantity;
+    $self->_tag_InvoiceLineAdd_UnitOfMeasure;
+    $self->_tag_InvoiceLineAdd_Rate;
+    $self->_tag_InvoiceLineAdd_RatePercent;
+    $self->_tag_InvoiceLineAdd_PriceLevelRef;
+    $self->_tag_InvoiceLineAdd_ClassRef;
+    $self->_tag_InvoiceLineAdd_Amount;
+    $self->_tag_InvoiceLineAdd_InventorySiteRef;
+    $self->_tag_InvoiceLineAdd_ServiceDate;
+    $self->_tag_InvoiceLineAdd_SalesTaxCodeRef;
+    $self->_tag_InvoiceLineAdd_OverrideItemAccountRef;
+    $self->_tag_InvoiceLineAdd_Other1;
+    $self->_tag_InvoiceLineAdd_Other2;
+    $self->_tag_InvoiceLineAdd_LinkToTxn;
+    $self->_tag_InvoiceLineAdd_DataExt;
     $self->writer->endTag;
 }
 
-sub tagItemRef {
+sub _tag_InvoiceLineAdd_ItemRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1168,12 +1168,12 @@ sub tagItemRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ItemRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineAdd_ItemRef_ListID;
+    $self->_tag_InvoiceLineAdd_ItemRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineAdd_ItemRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1187,7 +1187,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineAdd_ItemRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1201,7 +1201,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagDesc {
+sub _tag_InvoiceLineAdd_Desc {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1215,7 +1215,7 @@ sub tagDesc {
     $self->writer->endTag;
 }
 
-sub tagQuantity {
+sub _tag_InvoiceLineAdd_Quantity {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1229,7 +1229,7 @@ sub tagQuantity {
     $self->writer->endTag;
 }
 
-sub tagUnitOfMeasure {
+sub _tag_InvoiceLineAdd_UnitOfMeasure {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1243,7 +1243,7 @@ sub tagUnitOfMeasure {
     $self->writer->endTag;
 }
 
-sub tagRate {
+sub _tag_InvoiceLineAdd_Rate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1257,7 +1257,7 @@ sub tagRate {
     $self->writer->endTag;
 }
 
-sub tagRatePercent {
+sub _tag_InvoiceLineAdd_RatePercent {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1271,7 +1271,7 @@ sub tagRatePercent {
     $self->writer->endTag;
 }
 
-sub tagPriceLevelRef {
+sub _tag_InvoiceLineAdd_PriceLevelRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1281,12 +1281,12 @@ sub tagPriceLevelRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( PriceLevelRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineAdd_PriceLevelRef_ListID;
+    $self->_tag_InvoiceLineAdd_PriceLevelRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineAdd_PriceLevelRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1301,7 +1301,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineAdd_PriceLevelRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1316,7 +1316,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagClassRef {
+sub _tag_InvoiceLineAdd_ClassRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1326,12 +1326,12 @@ sub tagClassRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ClassRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineAdd_ClassRef_ListID;
+    $self->_tag_InvoiceLineAdd_ClassRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineAdd_ClassRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1345,7 +1345,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineAdd_ClassRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1360,7 +1360,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagAmount {
+sub _tag_InvoiceLineAdd_Amount {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1374,7 +1374,7 @@ sub tagAmount {
     $self->writer->endTag;
 }
 
-sub tagInventorySiteRef {
+sub _tag_InvoiceLineAdd_InventorySiteRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1384,12 +1384,12 @@ sub tagInventorySiteRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( InventorySiteRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineAdd_InventorySiteRef_ListID;
+    $self->_tag_InvoiceLineAdd_InventorySiteRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineAdd_InventorySiteRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1404,7 +1404,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineAdd_InventorySiteRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1419,7 +1419,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagServiceDate {
+sub _tag_InvoiceLineAdd_ServiceDate {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1433,7 +1433,7 @@ sub tagServiceDate {
     $self->writer->endTag;
 }
 
-sub tagSalesTaxCodeRef {
+sub _tag_InvoiceLineAdd_SalesTaxCodeRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1443,12 +1443,12 @@ sub tagSalesTaxCodeRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( SalesTaxCodeRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineAdd_SalesTaxCodeRef_ListID;
+    $self->_tag_InvoiceLineAdd_SalesTaxCodeRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineAdd_SalesTaxCodeRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1463,7 +1463,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineAdd_SalesTaxCodeRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1478,7 +1478,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagOverrideItemAccountRef {
+sub _tag_InvoiceLineAdd_OverrideItemAccountRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1489,12 +1489,12 @@ sub tagOverrideItemAccountRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( OverrideItemAccountRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineAdd_OverrideItemAccountRef_ListID;
+    $self->_tag_InvoiceLineAdd_OverrideItemAccountRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineAdd_OverrideItemAccountRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1509,7 +1509,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineAdd_OverrideItemAccountRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1524,7 +1524,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagOther1 {
+sub _tag_InvoiceLineAdd_Other1 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1538,7 +1538,7 @@ sub tagOther1 {
     $self->writer->endTag;
 }
 
-sub tagOther2 {
+sub _tag_InvoiceLineAdd_Other2 {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1552,7 +1552,7 @@ sub tagOther2 {
     $self->writer->endTag;
 }
 
-sub tagLinkToTxn {
+sub _tag_InvoiceLineAdd_LinkToTxn {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1562,12 +1562,12 @@ sub tagLinkToTxn {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( LinkToTxn => @$attr );
 
-    $self->tagTxnID;
-    $self->tagTxnLineID;
+    $self->_tag_InvoiceLineAdd_LinkToTxn_TxnID;
+    $self->_tag_InvoiceLineAdd_LinkToTxn_TxnLineID;
     $self->writer->endTag;
 }
 
-sub tagTxnID {
+sub _tag_InvoiceLineAdd_LinkToTxn_TxnID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1581,7 +1581,7 @@ sub tagTxnID {
     $self->writer->endTag;
 }
 
-sub tagTxnLineID {
+sub _tag_InvoiceLineAdd_LinkToTxn_TxnLineID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1596,7 +1596,7 @@ sub tagTxnLineID {
     $self->writer->endTag;
 }
 
-sub tagDataExt {
+sub _tag_InvoiceLineAdd_DataExt {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1606,13 +1606,13 @@ sub tagDataExt {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( DataExt => @$attr );
 
-    $self->tagOwnerID;
-    $self->tagDataExtName;
-    $self->tagDataExtValue;
+    $self->_tag_InvoiceLineAdd_DataExt_OwnerID;
+    $self->_tag_InvoiceLineAdd_DataExt_DataExtName;
+    $self->_tag_InvoiceLineAdd_DataExt_DataExtValue;
     $self->writer->endTag;
 }
 
-sub tagOwnerID {
+sub _tag_InvoiceLineAdd_DataExt_OwnerID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1626,7 +1626,7 @@ sub tagOwnerID {
     $self->writer->endTag;
 }
 
-sub tagDataExtName {
+sub _tag_InvoiceLineAdd_DataExt_DataExtName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1641,7 +1641,7 @@ sub tagDataExtName {
     $self->writer->endTag;
 }
 
-sub tagDataExtValue {
+sub _tag_InvoiceLineAdd_DataExt_DataExtValue {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1656,7 +1656,7 @@ sub tagDataExtValue {
     $self->writer->endTag;
 }
 
-sub tagInvoiceLineGroupAdd {
+sub _tag_InvoiceLineGroupAdd {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1666,15 +1666,15 @@ sub tagInvoiceLineGroupAdd {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( InvoiceLineGroupAdd => @$attr );
 
-    $self->tagItemGroupRef;
-    $self->tagQuantity;
-    $self->tagUnitOfMeasure;
-    $self->tagInventorySiteRef;
-    $self->tagDataExt;
+    $self->_tag_InvoiceLineGroupAdd_ItemGroupRef;
+    $self->_tag_InvoiceLineGroupAdd_Quantity;
+    $self->_tag_InvoiceLineGroupAdd_UnitOfMeasure;
+    $self->_tag_InvoiceLineGroupAdd_InventorySiteRef;
+    $self->_tag_InvoiceLineGroupAdd_DataExt;
     $self->writer->endTag;
 }
 
-sub tagItemGroupRef {
+sub _tag_InvoiceLineGroupAdd_ItemGroupRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1685,12 +1685,12 @@ sub tagItemGroupRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ItemGroupRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineGroupAdd_ItemGroupRef_ListID;
+    $self->_tag_InvoiceLineGroupAdd_ItemGroupRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineGroupAdd_ItemGroupRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1705,7 +1705,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineGroupAdd_ItemGroupRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1720,7 +1720,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagQuantity {
+sub _tag_InvoiceLineGroupAdd_Quantity {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1734,7 +1734,7 @@ sub tagQuantity {
     $self->writer->endTag;
 }
 
-sub tagUnitOfMeasure {
+sub _tag_InvoiceLineGroupAdd_UnitOfMeasure {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1749,7 +1749,7 @@ sub tagUnitOfMeasure {
     $self->writer->endTag;
 }
 
-sub tagInventorySiteRef {
+sub _tag_InvoiceLineGroupAdd_InventorySiteRef {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1760,12 +1760,12 @@ sub tagInventorySiteRef {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( InventorySiteRef => @$attr );
 
-    $self->tagListID;
-    $self->tagFullName;
+    $self->_tag_InvoiceLineGroupAdd_InventorySiteRef_ListID;
+    $self->_tag_InvoiceLineGroupAdd_InventorySiteRef_FullName;
     $self->writer->endTag;
 }
 
-sub tagListID {
+sub _tag_InvoiceLineGroupAdd_InventorySiteRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1780,7 +1780,7 @@ sub tagListID {
     $self->writer->endTag;
 }
 
-sub tagFullName {
+sub _tag_InvoiceLineGroupAdd_InventorySiteRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1795,7 +1795,7 @@ sub tagFullName {
     $self->writer->endTag;
 }
 
-sub tagDataExt {
+sub _tag_InvoiceLineGroupAdd_DataExt {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1805,13 +1805,13 @@ sub tagDataExt {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( DataExt => @$attr );
 
-    $self->tagOwnerID;
-    $self->tagDataExtName;
-    $self->tagDataExtValue;
+    $self->_tag_InvoiceLineGroupAdd_DataExt_OwnerID;
+    $self->_tag_InvoiceLineGroupAdd_DataExt_DataExtName;
+    $self->_tag_InvoiceLineGroupAdd_DataExt_DataExtValue;
     $self->writer->endTag;
 }
 
-sub tagOwnerID {
+sub _tag_InvoiceLineGroupAdd_DataExt_OwnerID {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1826,7 +1826,7 @@ sub tagOwnerID {
     $self->writer->endTag;
 }
 
-sub tagDataExtName {
+sub _tag_InvoiceLineGroupAdd_DataExt_DataExtName {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1841,7 +1841,7 @@ sub tagDataExtName {
     $self->writer->endTag;
 }
 
-sub tagDataExtValue {
+sub _tag_InvoiceLineGroupAdd_DataExt_DataExtValue {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1856,7 +1856,7 @@ sub tagDataExtValue {
     $self->writer->endTag;
 }
 
-sub tagIncludeRetElement {
+sub _tag_IncludeRetElement {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -1872,7 +1872,7 @@ sub tagIncludeRetElement {
 
 sub xml {
     my ($self) = @_;
-    my $method = 'tagQBXML';
+    my $method = '_tag_QBXML';
     $self->$method;
     $self->writer->end;
     $self;

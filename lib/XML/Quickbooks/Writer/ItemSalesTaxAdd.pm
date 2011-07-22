@@ -1,4 +1,4 @@
-package XML::Quickbooks::Writer::ItemDiscountAdd;
+package XML::Quickbooks::Writer::ItemSalesTaxAdd;
 use Moose;
 
 with qw(XML::Writer::Compiler::AutoPackage);
@@ -41,11 +41,11 @@ sub _tag_QBXMLMsgsRq {
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXMLMsgsRq => @$attr );
 
-    $self->_tag_ItemDiscountAddRq;
+    $self->_tag_ItemSalesTaxAddRq;
     $self->writer->endTag;
 }
 
-sub _tag_ItemDiscountAddRq {
+sub _tag_ItemSalesTaxAddRq {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -53,14 +53,14 @@ sub _tag_ItemDiscountAddRq {
     my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( ItemDiscountAddRq => @$attr );
+    $self->writer->startTag( ItemSalesTaxAddRq => @$attr );
 
-    $self->_tag_ItemDiscountAdd;
+    $self->_tag_ItemSalesTaxAdd;
     $self->_tag_IncludeRetElement;
     $self->writer->endTag;
 }
 
-sub _tag_ItemDiscountAdd {
+sub _tag_ItemSalesTaxAdd {
     my ($self) = @_;
 
     my $root = $self->data;
@@ -68,16 +68,13 @@ sub _tag_ItemDiscountAdd {
     my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( ItemDiscountAdd => @$attr );
+    $self->writer->startTag( ItemSalesTaxAdd => @$attr );
 
     $self->_tag_Name;
     $self->_tag_IsActive;
-    $self->_tag_ParentRef;
     $self->_tag_ItemDesc;
-    $self->_tag_SalesTaxCodeRef;
-    $self->_tag_DiscountRate;
-    $self->_tag_DiscountRatePercent;
-    $self->_tag_AccountRef;
+    $self->_tag_TaxRate;
+    $self->_tag_TaxVendorRef;
     $self->_tag_ExternalGUID;
     $self->writer->endTag;
 }
@@ -110,49 +107,6 @@ sub _tag_IsActive {
     $self->writer->endTag;
 }
 
-sub _tag_ParentRef {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(ParentRef) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( ParentRef => @$attr );
-
-    $self->_tag_ParentRef_ListID;
-    $self->_tag_ParentRef_FullName;
-    $self->writer->endTag;
-}
-
-sub _tag_ParentRef_ListID {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(ParentRef ListID) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( ListID => @$attr );
-
-    $self->writer->characters($data);
-    $self->writer->endTag;
-}
-
-sub _tag_ParentRef_FullName {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(ParentRef FullName) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( FullName => @$attr );
-
-    $self->writer->characters($data);
-    $self->writer->endTag;
-}
-
 sub _tag_ItemDesc {
     my ($self) = @_;
 
@@ -167,27 +121,41 @@ sub _tag_ItemDesc {
     $self->writer->endTag;
 }
 
-sub _tag_SalesTaxCodeRef {
+sub _tag_TaxRate {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root, qw(SalesTaxCodeRef) );
+    my $elementdata = $self->DIVE( $root, qw(TaxRate) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( SalesTaxCodeRef => @$attr );
+    $self->writer->startTag( TaxRate => @$attr );
 
-    $self->_tag_SalesTaxCodeRef_ListID;
-    $self->_tag_SalesTaxCodeRef_FullName;
+    $self->writer->characters($data);
     $self->writer->endTag;
 }
 
-sub _tag_SalesTaxCodeRef_ListID {
+sub _tag_TaxVendorRef {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root, qw(SalesTaxCodeRef ListID) );
+    my $elementdata = $self->DIVE( $root, qw(TaxVendorRef) );
+
+    my ( $attr, $data ) = $self->EXTRACT($elementdata);
+    $self->writer->startTag( TaxVendorRef => @$attr );
+
+    $self->_tag_TaxVendorRef_ListID;
+    $self->_tag_TaxVendorRef_FullName;
+    $self->writer->endTag;
+}
+
+sub _tag_TaxVendorRef_ListID {
+    my ($self) = @_;
+
+    my $root = $self->data;
+
+    my $elementdata = $self->DIVE( $root, qw(TaxVendorRef ListID) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ListID => @$attr );
@@ -196,83 +164,12 @@ sub _tag_SalesTaxCodeRef_ListID {
     $self->writer->endTag;
 }
 
-sub _tag_SalesTaxCodeRef_FullName {
+sub _tag_TaxVendorRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root, qw(SalesTaxCodeRef FullName) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( FullName => @$attr );
-
-    $self->writer->characters($data);
-    $self->writer->endTag;
-}
-
-sub _tag_DiscountRate {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(DiscountRate) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( DiscountRate => @$attr );
-
-    $self->writer->characters($data);
-    $self->writer->endTag;
-}
-
-sub _tag_DiscountRatePercent {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(DiscountRatePercent) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( DiscountRatePercent => @$attr );
-
-    $self->writer->characters($data);
-    $self->writer->endTag;
-}
-
-sub _tag_AccountRef {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(AccountRef) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( AccountRef => @$attr );
-
-    $self->_tag_AccountRef_ListID;
-    $self->_tag_AccountRef_FullName;
-    $self->writer->endTag;
-}
-
-sub _tag_AccountRef_ListID {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(AccountRef ListID) );
-
-    my ( $attr, $data ) = $self->EXTRACT($elementdata);
-    $self->writer->startTag( ListID => @$attr );
-
-    $self->writer->characters($data);
-    $self->writer->endTag;
-}
-
-sub _tag_AccountRef_FullName {
-    my ($self) = @_;
-
-    my $root = $self->data;
-
-    my $elementdata = $self->DIVE( $root, qw(AccountRef FullName) );
+    my $elementdata = $self->DIVE( $root, qw(TaxVendorRef FullName) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( FullName => @$attr );

@@ -22,76 +22,74 @@ sub _tag_QBXML {
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root, qw(QBXML) );
+    my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXML => @$attr );
 
-    $self->_tag_QBXML_QBXMLMsgsRq;
+    $self->_tag_QBXMLMsgsRq;
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq {
+sub _tag_QBXMLMsgsRq {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root, qw(QBXML QBXMLMsgsRq) );
+    my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( QBXMLMsgsRq => @$attr );
 
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq;
+    $self->_tag_AccountAddRq;
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq {
+sub _tag_AccountAddRq {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root, qw(QBXML QBXMLMsgsRq AccountAddRq) );
+    my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( AccountAddRq => @$attr );
 
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_IncludeRetElement;
+    $self->_tag_AccountAdd;
+    $self->_tag_IncludeRetElement;
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd {
+sub _tag_AccountAdd {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata =
-      $self->DIVE( $root, qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd) );
+    my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( AccountAdd => @$attr );
 
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_Name;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_IsActive;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_AccountType;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_AccountNumber;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_BankNumber;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_Desc;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_OpenBalance;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_OpenBalanceDate;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_TaxLineID;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef;
+    $self->_tag_Name;
+    $self->_tag_IsActive;
+    $self->_tag_ParentRef;
+    $self->_tag_AccountType;
+    $self->_tag_AccountNumber;
+    $self->_tag_BankNumber;
+    $self->_tag_Desc;
+    $self->_tag_OpenBalance;
+    $self->_tag_OpenBalanceDate;
+    $self->_tag_TaxLineID;
+    $self->_tag_CurrencyRef;
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_Name {
+sub _tag_Name {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata =
-      $self->DIVE( $root, qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd Name) );
+    my $elementdata = $self->DIVE( $root, qw(Name) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( Name => @$attr );
@@ -100,13 +98,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_Name {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_IsActive {
+sub _tag_IsActive {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd IsActive) );
+    my $elementdata = $self->DIVE( $root, qw(IsActive) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( IsActive => @$attr );
@@ -115,29 +112,27 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_IsActive {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef {
+sub _tag_ParentRef {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd ParentRef) );
+    my $elementdata = $self->DIVE( $root, qw(ParentRef) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ParentRef => @$attr );
 
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef_ListID;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef_FullName;
+    $self->_tag_ParentRef_ListID;
+    $self->_tag_ParentRef_FullName;
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef_ListID {
+sub _tag_ParentRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd ParentRef ListID) );
+    my $elementdata = $self->DIVE( $root, qw(ParentRef ListID) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ListID => @$attr );
@@ -146,13 +141,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef_ListID {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef_FullName {
+sub _tag_ParentRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd ParentRef FullName) );
+    my $elementdata = $self->DIVE( $root, qw(ParentRef FullName) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( FullName => @$attr );
@@ -161,13 +155,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_ParentRef_FullName {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_AccountType {
+sub _tag_AccountType {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd AccountType) );
+    my $elementdata = $self->DIVE( $root, qw(AccountType) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( AccountType => @$attr );
@@ -176,13 +169,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_AccountType {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_AccountNumber {
+sub _tag_AccountNumber {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd AccountNumber) );
+    my $elementdata = $self->DIVE( $root, qw(AccountNumber) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( AccountNumber => @$attr );
@@ -191,13 +183,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_AccountNumber {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_BankNumber {
+sub _tag_BankNumber {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd BankNumber) );
+    my $elementdata = $self->DIVE( $root, qw(BankNumber) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( BankNumber => @$attr );
@@ -206,13 +197,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_BankNumber {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_Desc {
+sub _tag_Desc {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata =
-      $self->DIVE( $root, qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd Desc) );
+    my $elementdata = $self->DIVE( $root, qw(Desc) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( Desc => @$attr );
@@ -221,13 +211,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_Desc {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_OpenBalance {
+sub _tag_OpenBalance {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd OpenBalance) );
+    my $elementdata = $self->DIVE( $root, qw(OpenBalance) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( OpenBalance => @$attr );
@@ -236,13 +225,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_OpenBalance {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_OpenBalanceDate {
+sub _tag_OpenBalanceDate {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd OpenBalanceDate) );
+    my $elementdata = $self->DIVE( $root, qw(OpenBalanceDate) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( OpenBalanceDate => @$attr );
@@ -251,13 +239,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_OpenBalanceDate {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_TaxLineID {
+sub _tag_TaxLineID {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd TaxLineID) );
+    my $elementdata = $self->DIVE( $root, qw(TaxLineID) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( TaxLineID => @$attr );
@@ -266,29 +253,27 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_TaxLineID {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef {
+sub _tag_CurrencyRef {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd CurrencyRef) );
+    my $elementdata = $self->DIVE( $root, qw(CurrencyRef) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( CurrencyRef => @$attr );
 
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef_ListID;
-    $self->_tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef_FullName;
+    $self->_tag_CurrencyRef_ListID;
+    $self->_tag_CurrencyRef_FullName;
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef_ListID {
+sub _tag_CurrencyRef_ListID {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd CurrencyRef ListID) );
+    my $elementdata = $self->DIVE( $root, qw(CurrencyRef ListID) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( ListID => @$attr );
@@ -297,13 +282,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef_ListID {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef_FullName {
+sub _tag_CurrencyRef_FullName {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq AccountAdd CurrencyRef FullName) );
+    my $elementdata = $self->DIVE( $root, qw(CurrencyRef FullName) );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( FullName => @$attr );
@@ -312,13 +296,12 @@ sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_AccountAdd_CurrencyRef_FullName {
     $self->writer->endTag;
 }
 
-sub _tag_QBXML_QBXMLMsgsRq_AccountAddRq_IncludeRetElement {
+sub _tag_IncludeRetElement {
     my ($self) = @_;
 
     my $root = $self->data;
 
-    my $elementdata = $self->DIVE( $root,
-        qw(QBXML QBXMLMsgsRq AccountAddRq IncludeRetElement) );
+    my $elementdata = $self->DIVE( $root, qw() );
 
     my ( $attr, $data ) = $self->EXTRACT($elementdata);
     $self->writer->startTag( IncludeRetElement => @$attr );
