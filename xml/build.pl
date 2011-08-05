@@ -1,5 +1,5 @@
 use File::Find;
-find(\&wanted, '.');
+find(\&wanted, 'lib');
 
 
 sub wanted {
