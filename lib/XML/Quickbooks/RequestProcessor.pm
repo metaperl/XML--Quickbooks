@@ -57,6 +57,7 @@ and the company file is open.";
 	
 	warn sprintf "TICKET: %s", $self->ticket;
 
+	warn "REQUEST: $request";
         my $response_xml_string =
           $self->connection->ProcessRequest( $self->ticket, $request );
 
