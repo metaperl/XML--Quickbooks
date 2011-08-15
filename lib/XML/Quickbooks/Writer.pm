@@ -4,12 +4,15 @@ use Moose;
 
 extends 'XML::Quickbooks';
 
-use Carp::Always;
+#use Carp::Always;
 
 sub as_xml {
     my ($self) = @_;
 
     my $xml = $self->xml->string->value;
+
+    warn "RAW XML: $xml";
+
     my $t   = XML::Twig->new(
         pretty_print  => 'indented',
         twig_handlers => {

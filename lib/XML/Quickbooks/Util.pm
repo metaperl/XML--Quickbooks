@@ -6,9 +6,12 @@ use Moose::Role;
 
 use Data::Diver;
 
-sub lnew {
+use Carp;
+
+sub xqt_new {
     my ( $self, $pkgtail, @constructor_args ) = @_;
 
+    Carp::carp("xqt_new is DEPRECATED");
     use Class::MOP;
     my $class = "XML::Quickbooks::Tolol::$pkgtail";
     Class::MOP::load_class($class);

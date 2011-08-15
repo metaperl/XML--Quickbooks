@@ -38,9 +38,9 @@ sub makeacct {
     my $posting_acct = 'Test' . timestamp;
     my ($type)       = @_;
     my %localarg     = ( Name => $posting_acct, AccountType => $type );
-    use XML::Quickbooks::Writer::AccountAdd;
+    use XML::Quickbooks::Tolol::AccountAdd;
     my $o =
-      XML::Quickbooks::Writer::AccountAdd->new( maxwarn(), data => \%localarg );
+      XML::Quickbooks::Tolol::AccountAdd->new( maxwarn(), data => \%localarg );
     warn Data::Dumper::Dumper($o);
     $o->submit;
     $posting_acct;

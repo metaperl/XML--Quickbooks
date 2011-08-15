@@ -1128,6 +1128,7 @@ sub _tag_SetCredit_Override {
     $self->writer->endTag;
 }
 
+
 sub _tag_InvoiceLineAdd {
     my ($self) = @_;
 
