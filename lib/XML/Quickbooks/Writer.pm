@@ -11,8 +11,6 @@ sub as_xml {
 
     my $xml = $self->xml->string->value;
 
-    warn "RAW XML: $xml";
-
     my $t   = XML::Twig->new(
         pretty_print  => 'indented',
         twig_handlers => {
