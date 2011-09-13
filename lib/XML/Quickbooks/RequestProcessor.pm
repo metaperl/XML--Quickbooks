@@ -23,8 +23,12 @@ sub _build_connection {
 
     warn "RP:     $request_processor ";
 
-    $request_processor->OpenConnection2( "", $self->appname,
-        $self->const->{"localQBD"} );
+    $request_processor->OpenConnection2(
+        "",
+        $self->appname,
+        #$self->const->{"localQBDLaunchUI"},
+        $self->const->{"localQBD"},
+    );
     $request_processor;
 }
 
@@ -50,14 +54,13 @@ sub process {
             )
         );
 
-	$self->ticket or die 
-"Connection to Quickbooks failed.
+        $self->ticket or die "Connection to Quickbooks failed.
 Check to see that it is running
 and the company file is open.";
-	
-	warn sprintf "TICKET: %s", $self->ticket;
 
-	warn "REQUEST: $request";
+        warn sprintf "TICKET: %s", $self->ticket;
+
+        warn "REQUEST: $request";
         my $response_xml_string =
           $self->connection->ProcessRequest( $self->ticket, $request );
 
